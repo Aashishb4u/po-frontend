@@ -1,0 +1,111 @@
+<div class="main-campaign">
+</div>
+
+<div class="addUserContainer">
+    <div class="profileContent">
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+            <div class="col-md-12 row profileForm">
+                <div class="col-md-4 adjustBottom">
+                    <div>
+                        <label class="labelStyle required"> Item Name </label>
+                    </div>
+                </div>
+
+                <div class="col-md-8 adjustBottom">
+                    <div [ngClass]="{'has-error': (form.controls['vendorName'].invalid && form.controls['vendorName'].touched), 'has-success': (form.controls['vendorName'].valid && form.controls['vendorName'].touched)}">
+                        <input maxlength="30" placeholder="Item Name"  formControlName="vendorName" type="text" class="text-capitalize form-control">
+                    </div>
+                    <div class="profileErrorMessage">
+                        <div class="profileErrorMessage">
+                            <span *ngIf="(!form.get('vendorName').valid && form.get('vendorName').touched) && form.get('vendorName').value != '' "
+                                  class="help-block sub-little-signUp-error confpass"> Please Enter Valid Item Name </span>
+                            <span *ngIf="form.get('vendorName').touched && form.get('vendorName').value.trim() == '' "
+                                  class="help-block sub-little-signUp-error confpass"> Item Name is Required </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 adjustBottom">
+                    <div>
+                        <label class="labelStyle required"> Description </label>
+                    </div>
+                </div>
+                <div class="col-md-8 adjustBottom">
+                    <div [ngClass]="{'has-error': (form.controls['description'].invalid && form.controls['description'].touched), 'has-success': (form.controls['description'].valid && form.controls['description'].touched)}">
+                        <textarea maxlength="120" placeholder="Description" formControlName="description" class="form-control" ></textarea>
+                    </div>
+                    <div class="profileErrorMessage">
+                        <div class="profileErrorMessage">
+                            <span *ngIf="(!form.get('description').valid && form.get('description').touched) && form.get('description').value != '' "
+                                  class="help-block sub-little-signUp-error confpass"> Please Enter Valid Description </span>
+                            <span *ngIf="form.get('description').touched && form.get('description').value.trim() == '' "
+                                  class="help-block sub-little-signUp-error confpass"> Description is Required </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 adjustBottom">
+                    <div>
+                        <label class="labelStyle required"> Categories  </label>
+                    </div>
+                </div>
+                <div class="col-md-8 adjustBottom">
+                    <div [ngClass]="{'has-error': (form.controls['categories'].invalid && form.controls['categories'].touched), 'has-success': (form.controls['categories'].valid && form.controls['categories'].touched)}">
+                        <select formControlName="categories" multiple size="6" class="form-control text-capitalize selectBox" >
+                            <option  *ngFor="let tag of tagsArray" value="{{tag}}">{{tag}}</option>
+                        </select>
+                    </div>
+                    <div class="profileErrorMessage">
+                        <div class="profileErrorMessage">
+                            <span *ngIf="form.controls['categories'].dirty && form.controls['categories'].invalid"
+                                  class="help-block sub-little-signUp-error confpass"> Categories are Required </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 adjustBottom">
+                    <div>
+                        <label class="labelStyle "> GST ( % ) </label>
+                    </div>
+                </div>
+
+                <div class="col-md-8 adjustBottom">
+                    <div [ngClass]="{'has-error': (form.controls['gst'].invalid && form.controls['gst'].touched), 'has-success': (form.controls['gst'].valid && form.controls['gst'].touched)}">
+                        <input placeholder="GST" [textMask]="{mask: gstMask,guide : false}"  formControlName="gst" type="text" class="form-control">
+                    </div>
+                    <div class="profileErrorMessage">
+                        <span *ngIf="(!form.get('gst').valid && form.get('gst').touched) && form.get('gst').value != '' "
+                        class="help-block sub-little-signUp-error confpass"> Please Enter Valid GST % </span>
+                    </div>
+                </div>
+
+                <div class="col-md-4 adjustBottom">
+                    <div>
+                        <label class="labelStyle "> Almirah </label>
+                    </div>
+                </div>
+
+                <div class="col-md-8 adjustBottom">
+                    <div>
+                        <select formControlName="location" (change)="this.selectLocation($event)" class="form-control text-capitalize selectBox" [ngClass]="{'has-error': (form.controls['location'].invalid && form.controls['location'].touched), 'has-success': (form.controls['location'].valid && form.controls['location'].touched)}">
+                            <option value ="" disabled selected> Almirah </option>
+                            <option  *ngFor="let location of locationArray" value="{{location.id}}">{{location.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-12 row" *ngIf="this.contactTab">
+                <div class="col-md-12 form-group inputbutton submitButton">
+                    <button (click)="goBack()" class="btnStyle btnBackStyle"> Back</button>
+                    <button [ngClass]="{'disableSubmit' : (!form.valid) }"
+                            [disabled]="!form.valid" type="submit" class="btnNext btnStyle">Add Item
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,581 @@
+<div class="investorProfileContainer">
+    <div>
+        <div class="profileContent">
+            <div class="col-md-3 divAlignLeft sideProgressSteps form-titles">
+                <div class="tellUsDiv">
+                    <div class="tellUsLabel">Tell us about</div>
+                    <div class="tellUsLabel">yourself</div>
+                </div>
+                <div class="profileInstruction">
+                    <p>
+                        We will use your account information to create your profile.
+                    </p>
+                </div>
+
+                <div>
+                    <div class="stepList">
+                        <div class="step horizontalView"
+                             [ngClass]="{'current': tab.isInvesterTab.active,'passed': !tab.isInvesterTab.active && tab.isInvesterTab.hasDone}">
+                            1<span class="stepLabel">Investor Information</span></div>
+                        <div class="step horizontalView"
+                             [ngClass]="{'current': tab.isFinancialTab.active,'passed': !tab.isFinancialTab.active && tab.isFinancialTab.hasDone}">
+                            2<span class="stepLabel">Financial Information</span></div>
+                        <div class="step horizontalView"
+                             [ngClass]="{'current': tab.isEmployerTab.active,'passed': !tab.isEmployerTab.active && tab.isEmployerTab.hasDone}">
+                            3<span class="stepLabel">Employer Information</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div *ngIf="isInvesterTabs">
+                <form [formGroup]="investorForm" (ngSubmit)="onInvestFormSubmit(investorForm.value)">
+                    <div class="col-md-9 divAlignLeft row profileForm">
+                        <!--Investor information section-->
+
+                        <div class="col-md-12 divAlignLeft formInnerDiv">
+                            <div class="col-md-12 formTitle divAlignLeft">
+                                <div class="formTitleHead">
+                                    Investor Information
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 divAlignLeft">
+                                <div class="col-md-4 investor-details investorInputPadding investor-firstname">
+                                    <div>
+                                        <label class="labelStyle">First Name <i class="required">*</i></label>
+                                        <input formControlName="firstName" type="text" class="form-control"
+                                           id="inputFirstName" pattern="([a-zA-Z ]+\s?)*$" #firstName
+                                           (blur)="firstName.value = trimContent(firstName.value, 'firstName')"
+                                           maxlength="30" autofocus onkeypress="if(event.charCode < 65 || (event.charCode > 90 && event.charCode < 97) || event.charCode >122){
+                                             if(event.charCode == 32) {
+                                               return true
+                                             } else {
+                                              return false;
+                                             }
+                                           }">
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!investorForm.get('firstName').valid && investorForm.get('firstName').touched"
+                                              class="help-block sub-little-signUp-error confpass">First name is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 investor-details investorInputPadding">
+                                    <div>
+                                        <label class="labelStyle">Last Name</label>
+                                        <input formControlName="lastName" type="text" class="form-control"
+                                               id="inputLastName" #lastName
+                                               (blur)="lastName.value = trimContent(lastName.value, 'lastName')"
+                                               maxlength="30" onkeypress="if(event.charCode < 65 || (event.charCode > 90 && event.charCode < 97) || event.charCode >122){
+                                               if(event.charCode == 32) {
+                                               return true
+                                             } else {
+                                              return false;
+                                             }
+                                           }">
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!investorForm.get('lastName').valid && investorForm.get('lastName').touched"
+                                              class="help-block sub-little-signUp-error confpass">Last name is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 investor-details investorInputPadding investor-lastname">
+                                    <div>
+                                        <label class="labelStyle">Email</label>
+                                        <input disabled formControlName="email" type="text" class="form-control"
+                                               maxlength="60">
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!investorForm.get('email').valid && investorForm.get('email').touched"
+                                              class="help-block sub-little-signUp-error confpass">Email is required and must be valid.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 divAlignLeft">
+                                <div class="col-md-4 investor-details investorInputPadding investor-firstname">
+                                    <div>
+                                        <label class="labelStyle">Date of Birth</label>
+                                        <span class="Quotedatepicker">
+                                           <my-date-picker formControlName="dateOfBirth" [selDate]="fromDate"
+                                                           #datepicker
+                                                           placeholder="MM/DD/YYYY" secondary Placeholder="MM/DD/YYYY"
+                                                           name="mydate" [options]="myDatePickerOptions"
+                                                           (dateChanged)="onDateChanged($event)">
+                                           </my-date-picker>
+                                        </span>
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!investorForm.get('dateOfBirth').valid && investorForm.get('dateOfBirth').touched"
+                                              class="help-block sub-little-signUp-error confpass">Date of Birth is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 investorInputPadding investor-details">
+                                    <div>
+                                        <label class="labelStyle">SSN</label>
+                                        <input formControlName="SSN" type="text" class="form-control" id="SSN"
+                                               #SSN (blur)="SSN.value = trimContent(SSN.value, 'SSN')">
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!investorForm.get('SSN').valid && investorForm.get('SSN').touched"
+                                              class="help-block sub-little-signUp-error confpass">SSN is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 investor-details investorInputPadding investor-lastname">
+                                    <div>
+                                        <label class="labelStyle">Mobile Number&nbsp;<i class="required">*</i></label>
+                                        <input formControlName="phoneNumber" type="text" class="form-control"
+                                               pattern="^([0-9/-]+\s?)*$" minlength="12" maxlength="12" id="phoneNumber"
+                                               #phoneNumber
+                                               (blur)="phoneNumber.value = trimContent(phoneNumber.value, 'phoneNumber')"
+                                               onkeyup="if(event.keyCode == 8 || event.keyCode == 46 || event.keyCode == 37 || event.keyCode == 39) {
+                                                   return true;
+                                               } else {
+                                                   var x =this.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                                                           this.value = !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '')+(x[4] ? '-' + x[4] : '');
+                                               }">
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!investorForm.get('phoneNumber').valid && investorForm.get('phoneNumber').touched"
+                                              class="help-block sub-little-signUp-error confpass">Enter valid mobile number.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Address line  one and two-->
+                            <div class="col-md-12 divAlignLeft">
+                                <div class="col-md-6 investor-details investorInputPadding investor-firstname">
+                                    <div>
+                                        <label class="labelStyle">Address Line 1</label>
+                                        <input formControlName="addressLineOne" type="text" class="form-control"
+                                               id="addressLineOne" pattern="([a-zA-Z ]+\s?)*$"
+                                               #addressLineOne
+                                               (blur)="addressLineOne.value = trimContent(addressLineOne.value, 'addressLineOne')"
+                                               maxlength="150">
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!investorForm.get('addressLineOne').valid && investorForm.get('addressLineOne').touched"
+                                              class="help-block sub-little-signUp-error confpass">Address line one is required..
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 investor-details investorInputPadding investor-lastname">
+                                    <div>
+                                        <label class="labelStyle">Address Line 2</label>
+                                        <input formControlName="addressLineTwo" type="text" class="form-control"
+                                               id="addressLineTwo" pattern="([a-zA-Z ]+\s?)*$"
+                                               #addressLineTwo
+                                               (blur)="addressLineTwo.value = trimContent(addressLineTwo.value, 'addressLineTwo')"
+                                               maxlength="150">
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!investorForm.get('addressLineTwo').valid && investorForm.get('addressLineTwo').touched"
+                                              class="help-block sub-little-signUp-error confpass">Address line two is required.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 divAlignLeft">
+                                <div class="col-md-4 investor-details investorInputPadding investor-firstname">
+                                    <div>
+                                        <label class="labelStyle">City</label>
+                                        <input formControlName="city" type="text" class="form-control" id="city"
+                                               pattern="([a-zA-Z ]+\s?)*$" #city
+                                               (blur)="city.value = trimContent(city.value, 'city')" maxlength="30"
+                                               onkeypress="if(event.charCode < 65 || (event.charCode > 90 && event.charCode < 97) || event.charCode >122){
+                                               if(event.charCode == 32) {
+                                               return true
+                                             } else {
+                                              return false;
+                                             }
+                                           }">
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!investorForm.get('city').valid && investorForm.get('city').touched"
+                                              class="help-block sub-little-signUp-error confpass">City is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 investor-details investorInputPadding">
+                                    <div>
+                                        <label class="labelStyle">State</label>
+                                        <select class="form-control selectBox" formControlName="state">
+                                            <option value="" disabled selected>Select One</option>
+                                            <option *ngFor="let state of stateList" value="{{state}}">{{state}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!investorForm.get('state').valid && investorForm.get('state').touched"
+                                              class="help-block sub-little-signUp-error confpass">State is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 investor-details investorInputPadding investor-lastname">
+                                    <div>
+                                        <label class="labelStyle">Zip</label>
+                                        <input formControlName="zipCode" type="text" class="form-control"
+                                               id="zipCode" #zipCode
+                                               (blur)="zipCode.value = trimContent(zipCode.value, 'zipCode')"
+                                               maxlength="5">
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!investorForm.get('zipCode').valid && investorForm.get('zipCode').touched"
+                                              class="help-block sub-little-signUp-error confpass">Zip code is required.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--country and citizenship-->
+                            <div class="col-md-12 divAlignLeft">
+                                <div class="col-md-6 investor-details investorInputPadding investor-firstname">
+                                    <div>
+                                        <label class="labelStyle">Country</label>
+                                        <select class="form-control selectBox" #country
+                                                (change)="selectCountry(country.value)" formControlName="country">
+                                            <option value="" disabled>Select One</option>
+                                            <option *ngFor="let country of countryList" value="{{country.name}}">
+                                                {{country.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                         <span *ngIf="enterCountryMessage"
+                                               class="help-block sub-little-signUp-error confpass">Country is required.
+                                         </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 investor-details investorInputPadding investor-lastname">
+                                    <div>
+                                        <label class="labelStyle">Citizenship</label>
+                                        <select class="form-control selectBox" formControlName="citizenship"
+                                                #citizenType (change)="changeCountry(citizenType.value)">
+                                            <option value="" disabled selected>Select One</option>
+                                            <option *ngFor="let citizenType of citizenList" value="{{citizenType.id}}">
+                                                {{citizenType.path}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                <span *ngIf="!investorForm.get('citizenship').valid && investorForm.get('citizenship').touched"
+                                      class="help-block sub-little-signUp-error confpass">Citizenship is required.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 divAlignLeft inputBottomPadding">
+                                <div>
+                                    <label class="labelStyle">Choose the option that best applies to you:</label>
+                                </div>
+                                <div>
+                                    <input type="radio" formControlName="investOption" name="investOption"
+                                       id="investOptionOne" value="1"/><label for="investOptionOne"
+                                       class="labelStyle radioLabel">I will be investing for myself.</label>
+                                </div>
+                                <div>
+                                    <input class="radioInput" type="radio" formControlName="investOption"
+                                       name="investOption" id="investOptionTwo" value="2"/>
+                                    <label for="investOptionTwo" class="labelStyle radioLabel radioInvestOption">I
+                                        will be investing on behalf of another person or entity.
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 divAlignLeft inputBottomPadding">
+                                <div>
+                                    <input formControlName="accountName" type="text" class="form-control"
+                                           placeholder="Account Name (e.g. John Smith IRA, John & JaneJWROS, John Smith Individual)">
+                                </div>
+                                <div class="profileErrorMessage">
+                                    <span *ngIf="!investorForm.get('accountName').valid && investorForm.get('accountName').touched"
+                                          class="help-block sub-little-signUp-error confpass">Account name is required.
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-12 divAlignLeft form-group inputbutton submitButton">
+                            <button [ngClass]="{'disableSubmit' : (!investorForm.valid || submitted) }"
+                                    [disabled]="!investorForm.valid || submitted" type="submit" class="btnStyle">NEXT
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+            <!--Financial information section-->
+            <div *ngIf="isFinancialTabs">
+                <form [formGroup]="financialForm" (ngSubmit)="onFinancialFormSubmit(financialForm.value)">
+                    <div class="col-md-9 divAlignLeft row profileForm">
+
+                        <div class="col-md-12 divAlignLeft formInnerDiv">
+                            <div class="col-md-12 formTitle divAlignLeft">
+                                <div class="formTitleHead">
+                                    Financial Information
+                                </div>
+
+                            </div>
+                            <div class="col-md-12 divAlignLeft">
+                                <div class="col-md-6 investor-details investorInputPadding investor-firstname">
+                                    <div>
+                                        <label class="labelStyle">Current Annual Income ($)&nbsp;<i
+                                                class="required">*</i></label>
+                                        <input formControlName="currentAnnual" type="text" class="form-control"
+                                               onkeypress="if(event.charCode > 31 && (event.charCode < 48 || event.charCode > 57)) {
+                                                 return false;
+                                               }" maxlength="9">
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!financialForm.get('currentAnnual').valid && financialForm.get('currentAnnual').touched"
+                                              class="help-block sub-little-signUp-error confpass">Current Annual Income is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 investor-details investorInputPadding investor-lastname">
+                                    <div>
+                                        <label class="labelStyle">Average Income past two years ($)</label>
+                                        <input formControlName="averageIncome" type="text" class="form-control"
+                                               onkeypress="if(event.charCode > 31 && (event.charCode < 48 || event.charCode > 57)){
+                                                 return false;
+                                               }" maxlength="9" id="averageIncome">
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!financialForm.get('averageIncome').valid && financialForm.get('averageIncome').touched"
+                                              class="help-block sub-little-signUp-error confpass">Average Income past two years is required.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 divAlignLeft">
+                                <div class="col-md-6 investor-details investorInputPadding investor-firstname">
+                                    <div>
+                                        <label class="labelStyle">Household Annual Income ($)</label>
+                                        <input formControlName="householdAnnual" type="text" class="form-control"
+                                               onkeypress="if(event.charCode > 31 && (event.charCode < 48 || event.charCode > 57)){
+                                                   if(event.charCode == 32) {
+                                               return true
+                                             } else {
+                                              return false;
+                                             }
+                                             }" maxlength="9">
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!financialForm.get('householdAnnual').valid && financialForm.get('householdAnnual').touched"
+                                              class="help-block sub-little-signUp-error confpass">Household Annual Income is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 investor-details investorInputPadding investor-lastname">
+                                    <div>
+                                        <label class="labelStyle">Household Average Income past 2 years ($)</label>
+                                        <input formControlName="householdAverage" type="text" class="form-control"
+                                               onkeypress="if(event.charCode > 31 && (event.charCode < 48 || event.charCode > 57)){
+                                return false;
+                                }" maxlength="9">
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!financialForm.get('householdAverage').valid && financialForm.get('householdAverage').touched"
+                                              class="help-block sub-little-signUp-error confpass">Household Average Income pat 2 years is required.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 divAlignLeft inputBottomPadding">
+                                <div>
+                                    <label class="labelStyle">Household Networth ($)</label>
+                                    <input formControlName="householdNetworth" type="text" class="form-control"
+                                           onkeypress="if(event.charCode > 31 && (event.charCode < 48 || event.charCode > 57)){
+                                return false;
+                                }" maxlength="9">
+
+                                </div>
+                                <div class="profileErrorMessage">
+                            <span *ngIf="!financialForm.get('householdNetworth').valid && financialForm.get('householdNetworth').touched"
+                                  class="help-block sub-little-signUp-error confpass">Household Networth is required.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 divAlignLeft navMobile form-group inputbutton submitButton previousDiv">
+                            <button [ngClass]="{'disableSubmit' : (!financialForm.valid || submitted) }"
+                                    [disabled]="!financialForm.valid || submitted" type="submit"
+                                    class="btnStyle nextButton">NEXT
+                            </button>
+                            <button type="button" class="btnStyle  previousButton" (click)="navigateToInvestorForm()">
+                                PREVIOUS
+                            </button>
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <!--Employer section-->
+            <div *ngIf="isEmployerTabs">
+                <form [formGroup]="employerForm" (ngSubmit)="onEmployerFormSubmit(employerForm.value)">
+                    <div class="col-md-9 divAlignLeft row profileForm">
+
+                        <div class="col-md-12 divAlignLeft formInnerDiv">
+                            <div class="col-md-12 formTitle divAlignLeft">
+                                <div class="formTitleHead">
+                                    Employer Information
+                                </div>
+                            </div>
+                            <div class="col-md-12 divAlignLeft inputBottomPadding">
+                                <div>
+                                    <label class="labelStyle">Employer Name</label>
+                                    <input formControlName="employerName" type="text" class="form-control" autofocus
+                                           id="employerName" pattern="([a-zA-Z ]+\s?)*$" #employerName
+                                           maxlength="30" onkeypress="if(event.charCode < 65 || (event.charCode > 90 && event.charCode < 97) || event.charCode >122){
+                                               if(event.charCode == 32) {
+                                               return true
+                                             } else {
+                                              return false;
+                                             }
+                                           }">
+                                </div>
+                                <div class="profileErrorMessage">
+                                    <span *ngIf="!employerForm.get('employerName').valid && employerForm.get('employerName').touched"
+                                          class="help-block sub-little-signUp-error confpass">Employer name is required.
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 divAlignLeft inputBottomPadding">
+                                <div>
+                                    <label class="labelStyle">Employer Address</label>
+                                    <input formControlName="employerAddress" type="text" class="form-control"
+                                           id="employerAddress" pattern="([a-zA-Z ]+\s?)*$"
+                                           #employerAddress maxlength="150">
+                                </div>
+                                <div class="profileErrorMessage">
+                                    <span *ngIf="!employerForm.get('employerAddress').valid && employerForm.get('employerAddress').touched"
+                                          class="help-block sub-little-signUp-error confpass">Employer address is required.
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 divAlignLeft inputBottomPadding">
+                                <div>
+                                    <label class="labelStyle">Address line 2</label>
+                                    <input formControlName="employerAddressLineTwo" type="text" class="form-control"
+                                           id="employerAddressLineTwo" pattern="([a-zA-Z ]+\s?)*$"
+                                           #employerAddressLineTwo maxlength="150">
+                                </div>
+                                <div class="profileErrorMessage">
+                                    <span *ngIf="!employerForm.get('employerAddressLineTwo').valid && employerForm.get('employerAddressLineTwo').touched"
+                                          class="help-block sub-little-signUp-error confpass">Employer address line two is required.
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 divAlignLeft inputBottomPadding">
+                                <div>
+                                    <label class="labelStyle">Country</label>
+                                    <select class="form-control selectBox" formControlName="employerCountry">
+                                        <option value="" disabled selected>United States</option>
+                                        <option *ngFor="let country of countryList" value="{{country.name}}">
+                                            {{country.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="profileErrorMessage">
+                                    <span *ngIf="!employerForm.get('employerCountry').valid && employerForm.get('employerCountry').touched"
+                                          class="help-block sub-little-signUp-error confpass">Employer Country is required.
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 divAlignLeft">
+                                <div class="col-md-4 investor-details investorInputPadding investor-firstname">
+                                    <div>
+                                        <label class="labelStyle">City</label>
+                                        <input formControlName="employerCity" type="text" class="form-control"
+                                               id="employerCity" pattern="([a-zA-Z ]+\s?)*$"
+                                               #employerCity maxlength="30" onkeypress="if(event.charCode < 65 || (event.charCode > 90 && event.charCode < 97) || event.charCode >122){
+                                               if(event.charCode == 32) {
+                                               return true
+                                             } else {
+                                              return false;
+                                             }
+                                           }">
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!employerForm.get('employerCity').valid && employerForm.get('employerCity').touched"
+                                              class="help-block sub-little-signUp-error confpass">Employer City is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 investor-details investorInputPadding">
+                                    <div>
+                                        <label class="labelStyle">State</label>
+                                        <!--<input formControlName="employerState" type="text" class="form-control">-->
+                                        <select class="form-control selectBox" formControlName="employerState">
+                                            <option value="" disabled selected>Select One</option>
+                                            <option *ngFor="let state of stateList" value="{{state}}">
+                                                {{state}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!employerForm.get('employerState').valid && employerForm.get('employerState').touched"
+                                              class="help-block sub-little-signUp-error confpass">State is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 investor-details investorInputPadding investor-lastname">
+                                    <div>
+                                        <label class="labelStyle">Zip</label>
+                                        <input formControlName="employerZip" type="text" class="form-control"
+                                               id="employerZip" #employerZip maxlength="5">
+                                    </div>
+                                    <div class="profileErrorMessage">
+                                        <span *ngIf="!employerForm.get('employerZip').valid && employerForm.get('employerZip').touched"
+                                              class="help-block sub-little-signUp-error confpass">Employer Zip is required and must be valid.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 divAlignLeft inputBottomPadding">
+                                <div>
+                                    <div class="labelStyle">Are you an associated person of a registered
+                                        broker-dealer?
+                                    </div>
+                                    <label for="isRegisteredBrokerOne" class="labelStyle radioLabel">Yes.</label>
+                                    <input type="radio" class="radioButtonRegisteredBroker"
+                                           formControlName="isRegisteredBroker" name="isRegisteredBroker"
+                                           id="isRegisteredBrokerOne" value="1"/>
+                                    <label for="isRegisteredBrokerTwo" class="labelStyle radioLabel">No.</label>
+                                    <input type="radio" class="radioButtonRegisteredBroker"
+                                           formControlName="isRegisteredBroker" name="isRegisteredBroker"
+                                           id="isRegisteredBrokerTwo" value="2"/>
+                                </div>
+                                <div class="profileErrorMessage">
+                                    <span *ngIf="!employerForm.get('isRegisteredBroker').valid && employerForm.get('isRegisteredBroker').touched"
+                                          class="help-block sub-little-signUp-error confpass">Radio button must be selected.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 divAlignLeft form-group inputbutton submitButton previousDiv">
+                            <button [ngClass]="{'disableSubmit' : (!employerForm.valid || submitted) }"
+                                    [disabled]="!employerForm.valid || submitted" type="submit"
+                                    class="btnStyle nextButton">FINISH
+                            </button>
+                            <button
+                                    [disabled]="!employerForm.valid || submitted" type="button"
+                                    class="btnStyle  previousButton" (click)="navigateToFinancialForm()">PREVIOUS
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

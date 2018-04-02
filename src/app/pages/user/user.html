@@ -1,0 +1,53 @@
+<div class="userContainer">
+    <div class="userGridContainer">
+        <div  class="userGridAction">
+            <div class="userGridSearchContainer">
+                <div class="input-group userGridSearchInput">
+                    <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    <input class="search right-border searchbox" #searchBox (keyup)="searchUsers(searchBox.value)" placeholder="Search"/>
+                </div>
+            </div>
+            <div class="userGridActionContainer">
+                <div class="userGridExport"> <a class="export" (click)="exportUsers()"><i class="fa fa-download"></i></a></div>
+                <div class="userGridActionAdd">
+                    <button class="add" (click) ="navigateToAddUser()"><i class="fa fa-plus"></i>&nbsp;Add User</button>
+                </div>
+            </div>
+        </div>
+        <div class="userGridDataParentContainer">
+            <div id="foo" class="userGridDataContainer">
+                <ng2-smart-table [settings]="settings" [source]="source"
+                                 (editConfirm)="onSaveConfirm($event)"
+                                 (edit)="editUser($event)"
+                                 (delete)="confirmDelete($event)">
+                </ng2-smart-table>
+            </div>
+            <div class="paginationControl">
+                <div *ngFor='let data of userList | paginate : { itemsPerPage:per_page, currentPage:current_page, id : "listItem", totalItems: totalCount }'></div>
+                <pagination-controls class="pageControl" (pageChange)="getPageData($event)" id="listItem"
+                                     nextLabel="Next">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="confirmUserActiveContainer">
+    <modal #confirmUserActiveModal [closeOnOutsideClick]="false">
+        <modal-header>
+            <div class="test"><span class="headerText">Are you sure you want to make InActive this user?</span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer">
+                <div class="confirmButtons">
+                    <div class="noButton">
+                        <button class="noConfirm" (click)="confirmUserActiveModal.close()">No</button>
+                    </div>
+                    <div class="yesButton">
+                        <button class="yesConfirm" (click)="makeUserActive()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </modal-content>
+    </modal>
+</div>

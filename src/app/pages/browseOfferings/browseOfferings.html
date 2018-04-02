@@ -1,0 +1,130 @@
+<div class="browseOfferingTabs">
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <div class="wizard">
+                <div class="offeringTab" [ngClass]="{'currentTab' : viewAllPage}" id="viewAll"
+                     (click)="changeTab('setting')"><a><span
+                        class="tabText">View All</span></a>
+                </div>
+
+                <div class="offeringTab" [ngClass]="{'currentTab' : newOfferingPage}" id="newOffering"
+                     (click)="changeTab('newOffering')"><a><span
+                        class="tabText">New</span></a></div>
+
+                <div class="offeringTab disableTab" [ngClass]="{'currentTab' : recentlyAddedPage}"
+                     id="recentlyAdded"
+                ><a><span class="tabText">Recently Added</span></a>
+                </div>
+
+                <!--(click)="changeTab('recentlyAdded')"-->
+                <div class="offeringTab disableTab" [ngClass]="{'currentTab' : endingSoonPage}" id="endingSoon"
+                ><a><span
+                        class="tabText">Ending Soon</span></a>
+                </div>
+                <!--(click)="changeTab('endingSoon')"-->
+                <div class="offeringTab disableTab" [ngClass]="{'currentTab' : successfulPage}" id="successfull"
+                ><a><span
+                        class="tabText">SuccessFull Campaign</span></a>
+                </div>
+                <!--(click)="changeTab('successfull')"-->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="browseOfferingContainer">
+    <div class="browseOfferingContent divAlignLeft" *ngIf="viewAllPage">
+        <div class="col-md-12 divAlignLeft offerContainer">
+            <div class="col-md-9 divAlignLeft tileContainer">
+                <div class="col-md-12 divAlignLeft offeringDiv">
+                    <div *ngFor="let offering of offeringsList;" class="col-md-4 divAlignLeft offeringTile">
+                        <div class="imageContainer">
+                            <img src="{{offering.imgSrc}}"alt="image">
+                        </div>
+                        <div (click)="navigateToOffering()"class="offeringTitleDiv">
+                            <span class="offeringTitle">{{offering.type}}</span>
+                            <span class="offeringSubText">{{offering.location}}</span>
+                        </div>
+                        <div class="progressBarContainer">
+                            <div class="progressBarDiv">
+                                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="25" class="progress-bar"
+                                     role="progressbar" [style.width.%]='offering.progress ? offering.progress: 0 '>
+                                    <span>{{offering.progressDollarValue}}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div>
+                            <ul class="offeringList">
+                                <li class="offeringListItem">
+                                        <label>Raised</label>
+                                        <span>{{offering.progressDollarValue}} of {{offering.goal}}</span>
+                                </li>
+                                <li class="offeringListItem">
+                                        <label>Days left</label>
+                                        <span>{{offering.daysLeft}}</span>
+                                </li>
+                                <li class="offeringListItem">
+                                        <label>Ann. Returns</label>
+                                        <span>{{offering.annualReturn}}</span>
+                                </li>
+                                <li class="offeringListItem">
+                                        <label>Prop. Type</label>
+                                        <span>{{offering.propType}}</span>
+                                </li>
+                                <li class="offeringListItem">
+                                        <label>Offer Type</label>
+                                        <span>{{offering.offerType}}</span>
+                                </li>
+                                <li class="offeringListItem">
+                                        <label>Term</label>
+                                        <span>{{offering.term}}</span>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 divAlignRight sideContainer">
+                <div class="col-md-12 contentBlock">
+                    <span>CATEGORIES</span>
+                </div>
+                <div class="col-md-12 sidebarContent">
+                    <span class="categories">Show All</span>
+                </div>
+                <div class="col-md-12 sidebarContent">
+                    <span class="categories">Commercial</span>
+                </div>
+                <div class="col-md-12 sidebarContent">
+                    <span class="categories">Residential</span>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    <!--Change Password page-->
+    <div class="browseOfferingContent changePasswordContent" *ngIf="newOfferingPage">
+        <h2>
+            New
+        </h2>
+    </div>
+    <!--Recently Added-->
+    <div class="" *ngIf="recentlyAddedPage">
+        <h2>Recently Added</h2>
+    </div>
+    <!--Ending Soon-->
+    <div class="" *ngIf="endingSoonPage">
+        <h2>Ending Soon</h2>
+    </div>
+    <!--Successfull Campaign-->
+    <div class="" *ngIf="successfulPage">
+        <h2>Successfull Campaign</h2>
+    </div>
+</div>

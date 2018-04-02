@@ -1,0 +1,400 @@
+@import "../../../styles";
+@import "../../theme/sass/_auth";
+
+@mixin stepProgress() {
+  .sideProgressSteps {
+    .stepList {
+      margin: 0;
+      .horizontalView {
+        display: inline-block;
+      }
+      .step::before {
+        display: none;
+      }
+      .step::after {
+        content: '';
+        position: absolute;
+        top: 0.9em;
+        left: 2em;
+        width: 7em;
+        height: .1em;
+        border: 1px solid grey;
+        background: grey;
+        z-index: 0;
+      }
+      .step:last-child::after {
+        display: none
+      }
+      .step.passed {
+        color: white;
+        background: green;
+        border: none;
+      }
+      .step.passed::after {
+        border-color: green;
+        background: green;
+      }
+
+      .step.current::after {
+        border: 1px solid grey;
+        background: grey;
+      }
+      .step {
+        margin: 0 3em 5em 3em;
+
+      }
+      .stepLabel {
+        color: grey;
+        position: absolute;
+        left: -41px;
+        width: 126px;
+        top: 35px;
+        font-size: 15px;
+      }
+
+    }
+  }
+}
+
+.investorProfileContainer {
+  margin: 135px 2.5% 50px 2.5%;
+  padding: 15px;
+  background: white;
+  min-width: 95%;
+  border-radius: $border-radius;
+  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  .profileForm {
+    padding-right: 0;
+    .formTitle {
+      height: 35px;
+      border: 1px solid $border-universal-color;
+      border-radius: $border-radius;
+      font-size: 17px;
+      font-weight: bold;
+      color: $primary;
+      background-color: $body-bg;
+      margin-bottom: 25px;
+      .formTitleHead {
+        margin-top: 10px;
+
+
+      }
+      .formInnerDiv {
+        padding-top: 10px;
+        margin-bottom: 10px
+      }
+
+    }
+
+  }
+  .form-titles {
+    background-color: #f1f3f6;
+    .labelContainer {
+      text-align: center;
+      //padding:1% 0;
+      .labelTxt {
+        font-weight: 500;
+        font-size: 17px;
+        padding: 30px 0px;
+        line-height: initial;
+      }
+      label {
+        margin-bottom: 0;
+      }
+    }
+    border-radius: 3px;
+    margin-bottom: 10px;
+    @media screen and (max-width: 810px) {
+      min-height: 35px;
+    }
+
+  }
+  .radioButtonRegisteredBroker {
+    margin: 10px;
+    vertical-align: middle;
+  }
+  .radioLabel {
+    margin-left: 8px;
+  }
+  .selectBox {
+    color: #666666;
+  }
+  .radioInvestOption {
+    display: inline-block;
+    width: 80%;
+  }
+  .inputbutton {
+    text-align: center;
+    margin: 1.9% 0 2% 0;
+  }
+  //select, option { width: __; }
+  .form-control[disabled] {
+    color: grey;
+    border-color: lightgrey;
+  }
+  .form-control {
+    border-radius: $border-radius;
+    option {
+      width: 100%;
+    }
+  }
+  .disableSubmit {
+    opacity: 0.8;
+    cursor: not-allowed;
+    &:hover {
+      opacity: 0.8;
+      cursor: not-allowed;
+    }
+  }
+  .profileContent {
+    float: left;
+    margin-top: 2%;
+    margin-left: 2.5%;
+    margin-right: 0%;
+    .investor-details {
+      padding-bottom: 30px;
+      float: left;
+    }
+    .investor-firstname {
+      padding-left: 0;
+    }
+    .investor-lastname {
+      padding-right: 0;
+    }
+
+  }
+  .btnStyle {
+    width: 18%;
+    height: 85%;
+    float: right;
+    margin-right: 15px;
+    @media screen and (min-width: 768px) and (max-width: 1100px) {
+      width: 28%;
+    }
+    @media screen and (max-width: 767px) {
+      width: 35%;
+    }
+  }
+  .small {
+    font-size: 100%;
+  }
+  .profileDiv {
+    padding-bottom: 25px;
+  }
+  .disableSubmit {
+    opacity: 0.8;
+    cursor: not-allowed;
+    &:hover {
+      opacity: 0.8;
+      cursor: not-allowed;
+    }
+  }
+  .help-block {
+    color: red;
+  }
+  .required {
+    color: red;
+  }
+  .sub-little-text {
+    font-size: 12px;
+  }
+  .inputBottomPadding {
+    padding-bottom: 30px;
+    input::-webkit-input-placeholder {
+      color: #666666;
+    }
+  }
+
+  .previousButton {
+    width: 18%;
+    float: right;
+    margin-right: 15px;
+  }
+  .nextButton {
+    width: 18%;
+    float: right;
+  }
+
+  .step {
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    line-height: 2em;
+    border-radius: 1em;
+    background: white;
+    margin: 3em 1em;
+    color: grey;
+    position: relative;
+    border: 0.5px solid grey;
+  }
+  .step::before {
+    content: '';
+    position: absolute;
+    top: 1.9em;
+    left: 1em;
+    width: .07em;
+    height: 3.1em;
+
+    background: grey;
+    z-index: 0;
+  }
+  .step:last-child::before {
+    display: none
+  }
+
+  .current {
+    color: white;
+    background: dodgerblue;
+    border: none;
+  }
+  .passed {
+    color: white;
+    background: green;
+    border: none;
+  }
+  .passed::before {
+    border-color: green;
+    background: green;
+  }
+  .current::before {
+    background: grey;
+  }
+  .tellUsLabel {
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 5px;
+
+  }
+  .tellUsDiv {
+    margin-top: 30px;
+    margin-left: 15px;
+
+  }
+  .profileInstruction {
+    margin-top: 20px;
+    font-size: 14px;
+    margin-left: 15px;
+    line-height: initial;
+  }
+  .stepLabel {
+    color: grey;
+    /* float: right; */
+    position: absolute;
+    left: 15px;
+    width: 200px;
+    font-size: 15px;
+
+  }
+
+}
+
+//@media only screen and (min-width: 840px) and (max-width: 880px) {
+//  .investorProfileContainer {
+//    overflow-y: hidden;
+//  }
+//}
+
+@media screen and (max-width: 767px) {
+  .investorProfileContainer {
+    .form-titles {
+      .labelContainer {
+        .labelTxt {
+          padding: 10px 0px;
+        }
+      }
+    }
+
+    .investorInputPadding {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .radioInput {
+      vertical-align: super;
+    }
+
+  }
+
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .investorProfileContainer {
+    .nextButton {
+      width: 35%
+    }
+    .previousButton {
+      width: 35%
+    }
+    @include stepProgress();
+  }
+}
+
+@media only screen and (min-width: 446px) and (max-width: 575px) {
+  .investorProfileContainer {
+    .navMobile {
+      width: 50%
+    }
+    .nextButton {
+      width: 35%
+    }
+    .previousButton {
+      width: 35%
+    }
+    @include stepProgress();
+  }
+}
+
+@media only screen and (min-width: 366px) and (max-width: 445px) {
+  .investorProfileContainer {
+    .nextButton {
+      width: 41%;
+      height: 45px;
+      font-size: 14px;
+    }
+    .previousButton {
+      width: 41%;
+      height: 45px;
+      font-size: 14px;
+    }
+    @include stepProgress();
+    .sideProgressSteps {
+      .stepList {
+        margin: 0px 0px 0px 4%;
+        .step::after {
+          width: 5em;
+        }
+        .step {
+          margin: 0 2em 5em 2em;
+        }
+      }
+    }
+
+  }
+}
+
+
+@media only screen and (min-width: 320px) and (max-width: 365px) {
+  .investorProfileContainer {
+    .nextButton {
+      width: 41%;
+    }
+    .previousButton {
+      width: 41%;
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1050px) {
+  .investorProfileContainer {
+    .profileContent {
+      @include stepProgress();
+      .form-titles, .profileForm {
+        max-width: 100%;
+      }
+      .tellUsLabel {
+        display: inline-block;
+      }
+
+    }
+  }
+}

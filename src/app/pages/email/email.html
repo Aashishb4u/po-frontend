@@ -1,0 +1,33 @@
+<div class="emailContainer">
+
+    <div class="col-sm-12 template">
+        <form [formGroup]="form">
+            <div class="templateHeading">
+                Select Template
+            </div>
+            <div class="templateOptions">
+                <select formControlName="select">
+                    <option disabled selected value="">Select template</option>
+                    <option value="active">Active User</option>
+                    <option value="inactive">Inactive User</option>
+                    <option value="reset">Reset Password</option>
+                </select>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="col-sm-12">
+
+    </div>
+
+    <div class="emailAction col-sm-12">
+        <div class="emailActionContainer">
+            <div class="emailSendAction">
+                <input [ngClass]="{'disableSubmit' : disableSubmit()}"
+                       [disabled]="disableSubmit()" type="submit" class="send" value="Save"
+                       (click)="saveTemplate(form.value)">
+            </div>
+        </div>
+    </div>
+</div>

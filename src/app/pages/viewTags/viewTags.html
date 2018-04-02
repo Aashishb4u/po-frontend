@@ -1,0 +1,42 @@
+<div class="profileContainer">
+
+    <div style="margin-left:1%;margin-bottom: 30px" >
+        <div class="col-lg-12 col-sm-12 col-xs-12 col-md-12 row">
+            <div class="col-lg-8 col-sm-5 col-xs-6 col-md-7" >
+                <input (keyup.enter)="addTag()" [(ngModel)]="this.tagName" type="text" (keyup)="disablityForAdd()" class="login-input text-capitalize form-group form-control" id="name" placeholder="Category">
+            </div>
+            <div class="col-lg-4 col-sm-7 col-xs-6 col-md-5" >
+                <button [disabled]="disableDeleteButton" title="Delete Tags" (click)="deleteTag()" type="button" class="btn btn-danger pull-right"><i class="fa fa-trash-o"></i></button>
+                <button [disabled]="disableTagButton" (click)="addTag()" type="button" class="btn btn-primary alignDeleteButton pull-right"><i class="add-item-icon ion-plus-round"></i> Add Category </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="profileContent ">
+        <li style="list-style: none;">
+            <span *ngFor="let tag of allTagsName">
+                <ul (click)="selectTag($event,tag.id)" class="text-capitalize tag">{{tag.name}}</ul>
+            </span>
+        </li>
+    </div>
+</div>
+
+<div class="confirmUserActiveContainer">
+    <modal #deleteVendorModal [closeOnOutsideClick]="false">
+        <modal-header>
+            <div class="test"><span class="headerText">Are you sure you want to delete Category?</span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer">
+                <div class="confirmButtons">
+                    <div class="noButton">
+                        <button class="noConfirm" (click)="deleteVendorModal.close()">No</button>
+                    </div>
+                    <div class="yesButton">
+                        <button class="yesConfirm" (click)="deleteTagFinal()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </modal-content>
+    </modal>
+</div>

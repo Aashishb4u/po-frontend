@@ -1,0 +1,55 @@
+<div class="inActiveUserContainer">
+    <div class="inActiveUserGridContainer">
+        <div class="inActiveUserGridAction">
+            <div class="inActiveUserGridSearchContainer">
+                <div class="input-group inActiveUserGridSearchInput">
+                    <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    <input class="search right-border searchbox" #searchBox (keyup)="searchUsers(searchBox.value)" placeholder="Search"/>
+                </div>
+
+            </div>
+            <div class="inActiveUserGridActionContainer">
+                <div class="inActiveUserGridExport"> <a class="export" (click)="exportUsers()"><i class="fa fa-download"></i></a></div>
+                <div class="inActiveUserGridActionAdd">
+                    <button class="add" (click) ="navigateToAddUser()"><i class="fa fa-plus"></i>&nbsp;Add User</button>
+                </div>
+            </div>
+        </div>
+        <div class="inActiveUserGridDataParentContainer">
+            <div class="inActiveUserGridDataContainer">
+                <ng2-smart-table [settings]="settings" [source]="source"
+                                 (editConfirm)="onSaveConfirm($event)"
+                                 (edit)="editUser($event)"
+                                 (delete)="confirmTransition($event)">
+                </ng2-smart-table>
+            </div>
+            <div class="paginationControl">
+                <div *ngFor='let data of userList | paginate : { itemsPerPage:per_page, currentPage:current_page, id : "listItem", totalItems: totalCount }'></div>
+                <pagination-controls class="pageControl" (pageChange)="getPageData($event)" id="listItem"
+                                     nextLabel="Next">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal pop up for making user active from inactive state.-->
+<div class="confirmUserInActiveContainer">
+    <modal #confirmUserInActiveModal [closeOnOutsideClick]="false">
+        <modal-header>
+            <div class="test"><span class="headerText">Are you sure you want to make Active this user?</span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer">
+                <div class="confirmButtons">
+                    <div class="noButton">
+                        <button class="noConfirm" (click)="confirmUserInActiveModal.close()">No</button>
+                    </div>
+                    <div class="yesButton">
+                        <button class="yesConfirm" (click)="makeUserActive()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </modal-content>
+    </modal>
+</div>

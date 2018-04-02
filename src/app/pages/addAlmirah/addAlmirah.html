@@ -1,0 +1,60 @@
+<div class="main-campaign">
+</div>
+
+<div class="addUserContainer">
+    <div class="profileContent">
+        <form [formGroup]="form" (ngSubmit)="addItemLocation(form.value)">
+            <div class="col-md-12 row profileForm">
+                <div class="col-md-4 adjustBottom">
+                    <div>
+                        <label class="labelStyle required"> Almirah Name </label>
+                    </div>
+                </div>
+
+                <div class="col-md-8 adjustBottom">
+                    <div [ngClass]="{'has-error': (form.controls['almirahName'].invalid && form.controls['almirahName'].touched), 'has-success': (form.controls['almirahName'].valid && form.controls['almirahName'].touched)}">
+                        <input maxlength="30" placeholder="Almirah Name"  formControlName="almirahName" type="text" class="text-capitalize form-control">
+                    </div>
+                    <div class="profileErrorMessage">
+                        <div class="profileErrorMessage">
+                            <span *ngIf="(!form.get('almirahName').valid && form.get('almirahName').touched) && form.get('almirahName').value != '' "
+                                  class="help-block sub-little-signUp-error confpass"> Please Enter Valid Almirah Name </span>
+                            <span *ngIf="form.get('almirahName').touched && form.get('almirahName').value.trim() == '' "
+                                  class="help-block sub-little-signUp-error confpass"> Almirah Name is Required </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 adjustBottom">
+                    <div>
+                        <label class="labelStyle required"> Description </label>
+                    </div>
+                </div>
+                <div class="col-md-8 adjustBottom">
+                    <div [ngClass]="{'has-error': (form.controls['description'].invalid && form.controls['description'].touched), 'has-success': (form.controls['description'].valid && form.controls['description'].touched)}">
+                        <textarea maxlength="120" placeholder="Description" formControlName="description" class="form-control" ></textarea>
+                    </div>
+                    <div class="profileErrorMessage">
+                        <div class="profileErrorMessage">
+                            <span *ngIf="(!form.get('description').valid && form.get('description').touched) && form.get('description').value != '' "
+                                  class="help-block sub-little-signUp-error confpass"> Please Enter Valid Description </span>
+                            <span *ngIf="form.get('description').touched && form.get('description').value.trim() == '' "
+                                  class="help-block sub-little-signUp-error confpass"> Description is Required </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-12 row" *ngIf="this.contactTab">
+                <div class="col-md-12 form-group inputbutton submitButton">
+                    <button (click)="goBack()" class="btnStyle btnBackStyle"> Back</button>
+                    <button [ngClass]="{'disableSubmit' : (!form.valid) }"
+                            [disabled]="!form.valid" type="submit" class="btnNext btnStyle">Add Almirah
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

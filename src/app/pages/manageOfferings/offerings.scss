@@ -1,0 +1,554 @@
+@import "../../../styles";
+@import "../../theme/sass/_auth";
+
+$font-size: 13px;
+
+.offerings-main-campaign {
+  width: 100%;
+  float: left;
+  padding-top: 110px;
+  //Offering Tab CSS
+  .offerings-panel {
+    float: left;
+    width: 100%;
+    .offerings-panel-body {
+      width: 100%;
+      float: left;
+      margin-bottom: 30px;
+      .offerings-wizard {
+        min-width: 70%;
+        float: left;
+        background: #fff;
+        margin: 0 2.5%;
+        border: 1px solid $border-universal-color;
+        border-radius: $border-radius;
+        font-weight: 700;
+        .offeringsTab {
+          width: 20%;
+          float: left;
+          text-align: center;
+          border-right: 1px solid $border-universal-color;
+          height: 50px;
+          line-height: 52px;
+          cursor: pointer;
+          font-size: 12px;
+          a {
+            text-transform: uppercase;
+          }
+        }
+      }
+      .totalDiv {
+        float: right;
+        margin-right: 2.5%;
+        width: 22%;
+        height: 50px;
+        font-size: 12px;
+        text-align: left;
+        border-right: 1px solid $border-universal-color;
+        padding: 15px 15px;
+        border-radius: $border-radius;
+        background-color: $signin-link-color;
+        .totalText {
+          color: #ffff;
+          padding-left: 15px;
+          font-size: 15px;
+        }
+      }
+      .currentTab {
+        font-size: 14px !important;
+        border-bottom: 3px solid $btn-color;
+        color: $btn-color;
+      }
+    }
+  }
+}
+
+.offeringsGridParentContainer {
+  width: 100%;
+  overflow-y: auto;
+  .actionContainer {
+    .actionContainerDiv {
+      width: 95%;
+      float: left;
+      padding: 0 15px;
+      margin: 10px 2.5%;
+      position: relative;
+      margin-bottom: 10px;
+      overflow-y: auto;
+      background: #fff;
+      border-radius: $border-radius;
+      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+      .searchButtonDiv {
+        width: 80%;
+        float: left;
+        padding: 1% 0;
+        .searchButton {
+          width: 100%;
+          float: left;
+          padding: 5px 5px 5px 0px;
+          .searchLogo {
+            border-bottom-left-radius: $border-radius;
+            border-top-left-radius: $border-radius;
+            float: left;
+            height: 35px;
+          }
+          .searchInputButton {
+            height: 35px;
+            color: #666666;
+            padding-left: 2%;
+            border: 1px solid $border-universal-color;
+            outline: none;
+            box-shadow: none;
+          }
+        }
+      }
+      .addOfferButtonDiv {
+        width: 20%;
+        float: right;
+        padding-top: 15px;
+        .addButton {
+          width: 100%;
+          height: 35px;
+          background-color: #195C94;
+          outline: none;
+          border: none;
+          border-radius: $border-radius;
+          color: white;
+          font-size: 15px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .offeringsGridSearchContainer {
+    margin: 0px 2.5% 0px 2.5%;
+    min-width: 95%;
+    overflow-y: auto;
+    border-radius: $border-radius;
+    float: left;
+    position: relative;
+    margin-bottom: 10px;
+    background: #fff;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+    .search-input-group {
+      padding: 10px 15px;
+    }
+    .offeringsGridSearchInput {
+      width: 40%;
+      float: left;
+      padding: 5px 5px 5px 0px;
+      .searchOffers {
+        width: 100%;
+        height: 35px;
+        color: #666666;
+        padding-left: 2%;
+        border: 1px solid $border-universal-color;
+        outline: none;
+        box-shadow: none;
+        @media screen and (max-width: 767px) {
+          height: 45px;
+        }
+      }
+      .right-border {
+        border-bottom-right-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+      }
+      .searchBox::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: gainsboro;
+      }
+
+      .searchBox::-moz-placeholder { /* Firefox 19+ */
+        color: gainsboro;
+      }
+
+      .searchBox:-ms-input-placeholder { /* IE 10+ */
+        color: gainsboro;
+      }
+
+      .searchBox:-moz-placeholder { /* Firefox 18- */
+        color: gainsboro;
+      }
+    }
+  }
+  .offeringsContainer {
+    margin: 0px 2.5% 50px 2.5%;
+    background: white;
+    min-width: 95%;
+    overflow-y: auto;
+    border-radius: $border-radius;
+    .offeringsContent {
+      width: 100%;
+      border: 1px solid #E0E0E0;
+      border-bottom: 0;
+      .activeHeadDiv {
+        font-size: 12px;
+        background-color: #f1f3f6;
+        color: #374767;
+        padding: 15px;
+        font-weight: 700;
+        border-bottom: 1px solid $border-universal-color;
+      }
+    }
+    .offeringsContainerHead {
+      position: relative;
+      font-size: 12px;
+      font-weight: 700;
+      color: #ffffff;
+      background-color: #374767;
+      padding: 15px 0;
+      text-align: left;
+      .activeDiv {
+        font-size: 12px;
+        background-color: #f1f3f6;
+        color: #374767;
+        padding: 10px;
+        font-weight: 700;
+      }
+    }
+    .offeringsGridDataContainer {
+      background: #ffffff;
+      overflow-y: auto;
+      display: block;
+      width: 100%;
+      float: left;
+      .offerDiv {
+        float: left;
+        width: 100%;
+        display: block;
+        padding-left: 0;
+        border-bottom: 1px solid $border-universal-color;
+        .offerDivFirst {
+          float: left;
+          width: 100%;
+          display: block;
+          padding: 10px 15px;
+          padding-left: 0;
+          color: #285eb8;
+          .progressBarDiv {
+            padding: 0;
+            border-radius: 10px;
+            background-color: #f1f3f6;
+            div.progress-bar {
+              background-color: #59a453;
+              color: #ffffff;
+              font-weight: 700;
+            }
+          }
+          .typeDiv {
+            float: left;
+            font-weight: 700;
+          }
+        }
+        .offerDivSecond {
+          float: left;
+          width: 100%;
+          display: block;
+          border: 1px solid $border-universal-color;
+          border-left: 0;
+          border-right: 0;
+          background-color: #f1f3f6;
+          padding: 15px 0px;
+          padding-left: 0;
+          .textWrap {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+          .locationDiv {
+            color: #374767;
+          }
+          .launchedDiv {
+            color: #374767;
+          }
+          .projectOwner {
+            color: #285eb8;
+            font-weight: 700;
+          }
+        }
+        .offerDivThird {
+          float: left;
+          width: 100%;
+          display: block;
+          background-color: #f1f3f6;
+          padding: 10px 15px;
+          .buttonDiv {
+            .addButton {
+              padding: 4px 10px;
+              margin-left: 15px;
+              background-color: #ffffff;
+              cursor: pointer;
+              border-radius: $border-radius;
+              border: 1px solid #E0E0E0;
+            }
+            .editButton {
+              padding: 4px 10px;
+              background-color: #195C94;
+              color: #ffffff;
+              cursor: pointer;
+              border-radius: $border-radius;
+              border: 1px solid $border-universal-color;
+            }
+            .investorButton {
+              padding: 4px 10px;
+              background-color: #ffffff;
+              cursor: pointer;
+              border-radius: $border-radius;
+              border: 1px solid $border-universal-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-device-width: 310px) and (max-device-width: 320px) {
+  .offerings-main-campaign {
+    .offerings-panel {
+      .offerings-panel-body {
+        .offerings-wizard {
+          width: 95%;
+          .offeringsTab {
+            height: 40px;
+            line-height: 40px;
+            a {
+              .tabText {
+                font-size: 7px;
+              }
+              .profileIcon {
+                margin-right: 0;
+              }
+            }
+          }
+        }
+        .totalDiv {
+          height: 40px;
+          width: 38%;
+          margin-top: 5px;
+          font-size: 7px;
+        }
+      }
+    }
+  }
+  .offeringsForm {
+    padding-right: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 321px) {
+  .offeringsGridParentContainer .actionContainer .actionContainerDiv {
+    .searchButtonDiv {
+      width: 100%;
+      float: left;
+    }
+    .addOfferButtonDiv {
+      width: 40%;
+      float: left;
+      padding-bottom: 8px;
+    }
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 768px) {
+  .offerings-main-campaign {
+    .offerings-panel {
+      .offerings-panel-body {
+        .offerings-wizard {
+          .offeringsTab {
+            height: 40px;
+            line-height: 40px;
+            &:last-child {
+              border-right: 0;
+            }
+            a {
+              .tabText {
+                font-size: 7px;
+              }
+              .profileIcon {
+                margin-right: 0;
+              }
+            }
+          }
+        }
+        .totalDiv {
+          font-size: 7px;
+          padding: 5px 10px;
+          height: 40px;
+          .tabText {
+            font-size: 7px;
+          }
+          .totalText {
+            color: #ffff;
+            padding-left: 5px;
+            font-size: 9px;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
+  .offeringsGridParentContainer {
+    .actionContainer {
+      .actionContainerDiv {
+        .addOfferButtonDiv {
+          padding-top: 8px;
+          .searchButton {
+            float: left;
+            padding: 5px 5px 5px 0;
+          }
+        }
+      }
+    }
+    .offeringsContainer {
+      .offeringsContent {
+        .offeringsForm {
+          .offeringsContainerHead {
+            background-color: #374767;
+            margin-bottom: 40px;
+            .profileDiv {
+              left: 20px;
+              bottom: -40px;
+              padding: 0;
+            }
+            .profileImage {
+              width: 94%;
+              font-size: 13px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 450px) and (max-width: 767px) {
+  .offerings-main-campaign {
+    .offerings-panel {
+      .offerings-panel-body {
+        .offerings-wizard {
+          .offeringsTab {
+            height: 45px;
+            line-height: 45px;
+            a {
+              .tabText {
+                font-size: 9px;
+              }
+              .profileIcon {
+                margin-right: 0;
+              }
+            }
+          }
+        }
+        .totalDiv {
+          height: 45px;
+          font-size: 9px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 414px) {
+  .offerings-main-campaign {
+    .offerings-panel {
+      .offerings-panel-body {
+        margin-bottom: 10px;
+        .offerings-wizard {
+          width: 95%;
+        }
+        .totalDiv {
+          height: 40px;
+          width: 38%;
+          margin-top: 15px;
+          font-size: 7px;
+        }
+      }
+    }
+  }
+  .offeringsGridParentContainer {
+    .actionContainer {
+      .actionContainerDiv {
+        .addOfferButtonDiv {
+          .addButton {
+            height: 35px;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+    .offeringsContainer {
+      .offeringsContent {
+        width: 500px;
+        .activeHeadDiv {
+          padding: 15px 5px;
+        }
+      }
+      .offeringsContainerHead {
+        width: 500px;
+        .typeDiv {
+          width: 25%;
+          padding: 5px;
+        }
+        .launchedDiv {
+          padding: 5px;
+          width: 17%;
+        }
+        .goalDiv {
+          width: 15%;
+          padding: 5px;
+        }
+        .projectOwnerDiv {
+          width: 30%;
+          padding: 5px;
+        }
+        .actionDiv {
+          width: 10%;
+          padding: 5px;
+        }
+      }
+      .offeringsGridDataContainer {
+        .offerDiv {
+          .offerDivFirst {
+            padding-right: 5px;
+            .typeDiv {
+              width: 50%;
+              padding: 5px;
+            }
+            .progressBarDiv {
+              width: 50%;
+            }
+          }
+          .offerDivSecond {
+            padding-right: 5px;
+            .locationDiv {
+              width: 25%;
+              float: left;
+              padding: 5px;
+            }
+            .launchedDiv {
+              width: 18%;
+              padding: 5px;
+            }
+            .goalDiv {
+              width: 15%;
+              padding: 5px;
+            }
+            .projectOwner {
+              width: 42%;
+              padding: 5px;
+            }
+            .actionDiv {
+              padding: 5px;
+            }
+            .textWrap {
+              white-space: unset
+            }
+          }
+          .offerDivThird {
+            padding-right: 5px;
+          }
+        }
+      }
+    }
+  }
+}

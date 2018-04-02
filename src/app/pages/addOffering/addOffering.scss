@@ -1,0 +1,130 @@
+@import "../../../styles";
+@import "../../theme/sass/_auth";
+
+$font-size: 13px;
+
+.addOfferingContainer {
+  margin: 91px 2.5% 50px 2.5%;
+  padding: 15px;
+  background: white;
+  min-width: 95%;
+  overflow-y: auto;
+  border-radius: $border-radius;
+  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+  .inputbutton {
+    text-align: center;
+    margin: 1.9% 0 2% 0;
+  }
+  .form-control[disabled] {
+    color: grey;
+    border-color: lightgrey;
+  }
+  .form-control {
+    border-radius: $border-radius;
+  }
+  .required {
+    color: red;
+  }
+
+  .addOfferingContent {
+    margin-top: 2%;
+    margin-left: 2.5%;
+    margin-right: 0%;
+    .addOfferingInput {
+      padding-bottom: 30px;
+      float: left
+    }
+  }
+  .radioButtonInput {
+    vertical-align: middle;
+  }
+  .selectBox {
+    cursor: pointer;
+  }
+  .btnStyle {
+    width: 18%;
+    height: 85%;
+    float: right;
+    margin-right: 15px;
+    @media screen and (min-width: 768px) and (max-width: 1100px) {
+      width: 28%;
+    }
+    @media screen and (max-width: 767px) {
+      width: 80%;
+    }
+  }
+  .radioLeft {
+    margin-left: 7%;
+  }
+  .radioSpan {
+    margin-left: 3%;
+  }
+  .disableSubmit {
+    opacity: 0.8;
+    cursor: not-allowed;
+    &:hover {
+      opacity: 0.8;
+      cursor: not-allowed;
+    }
+  }
+  .small {
+    font-size: 100%;
+  }
+  .disableSubmit {
+    opacity: 0.8;
+    cursor: not-allowed;
+    &:hover {
+      opacity: 0.8;
+      cursor: not-allowed;
+    }
+  }
+  .help-block {
+    color: red;
+  }
+  .sub-little-signUp-error {
+    font-size: 14px;
+  }
+  .ckEditor {
+    /* border-radius: 3px; */
+    padding: 0;
+    #cke_editor1 {
+      border-radius: 3px;
+      border: 0.3px solid lightgrey;
+    }
+  }
+
+}
+
+@media only screen and (min-width: 421px) and (max-width: 768px) {
+  .addOfferingContainer {
+    .addOfferingContent {
+      .radioSpan {
+        margin-left: 10px;
+      }
+      .radioLeft {
+        margin-left: 7%;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 420px) {
+  .addOfferingContainer {
+    .addOfferingContent {
+      .radioLabelHead {
+        display: block;
+      }
+      .radioMobile {
+        display: block;
+      }
+      .radioSpan {
+        float: left;
+        margin-top: 10px;
+        margin-left: 0;
+      }
+      .radioLeft {
+        margin-left: 0;
+      }
+    }
+  }
+}

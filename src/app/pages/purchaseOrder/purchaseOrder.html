@@ -1,0 +1,330 @@
+<div class="profileContainer">
+    <div class="profileContent ">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button disabled style=" margin-left:1%;margin-bottom: 10px"  type="button" title="Print Purchase Order" class="btn btn-primary alignDeleteButton pull-right " ><i class="fa fa-print" aria-hidden="true"></i></button>
+                    <button disabled style=" margin-left:1%;margin-bottom: 10px"  type="button" title="Send Mail" class="btn btn-primary alignDeleteButton pull-right " ><i class="fa fa-envelope" aria-hidden="true"></i></button>
+                    <button disabled style=" margin-left:1%;margin-bottom: 10px"  type="button" title="Send Test Mail" class="btn btn-primary alignDeleteButton pull-right " ><i class="fa fa-envelope-open" aria-hidden="true"></i></button>
+                    <button disabled  style=" margin-left:1%;margin-bottom: 10px" type="button" title="Received Items" class="btn btn-primary alignDeleteButton pull-right"><i class="fa fa-inbox" aria-hidden="true"></i></button>
+                    <button disabled style=" margin-left:1%;margin-bottom: 10px" (click)="addPayment()" type="button" title="Payment Details" class="btn btn-primary alignDeleteButton pull-right " ><i class="fa fa-file-text-o" aria-hidden="true"></i></button>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <hr>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <a class="al-logo clearfix"><img style="width: 120px; height: 52.5px;"
+                                                 src="https://tudip.com/wp-content/uploads/2017/07/tudip_80x35.png"></a>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <span><h3
+                            style="float: left; color: #3b5998; font-weight: bold">Integrity, Innovation, Serenity</h3></span>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <hr>
+                </div>
+                <div *ngFor="let vendor of vendorData" class="col-lg-7 col-md-7 col-sm-12 col-12">
+                    <div class="row"><span class="col-lg-3 col-md-5 col-sm-5 col-5"><b>Vendor Name:</b></span ><span class="col-lg-6 col-md-7 col-sm-7 col-7">{{vendor.name}}</span> </div>
+                    <div class="row"><span class="col-lg-3 col-md-5 col-sm-5 col-5"><b>Company Name:</b></span ><span class="col-lg-6 col-md-7 col-sm-7 col-7">{{vendor.company_name}}</span> </div>
+                    <div class="row"><span class="col-lg-3 col-md-5 col-sm-5 col-5"><b>Contact:</b></span ><span class="col-lg-6 col-md-7 col-sm-7 col-7">{{(vendor.contact_number) ? vendor.contact_number : 'NA'}}</span> </div>
+                    <div class="row"><span class="col-lg-3 col-md-5 col-sm-5 col-5"><b>Email:</b></span ><span class="col-lg-6 col-md-7 col-sm-7 col-7">{{(vendor.email) ? vendor.email : 'NA'}}</span> </div>
+                    <div class="row"><span class="col-lg-3 col-md-5 col-sm-5 col-5"><b>Address:</b></span ><span class="col-lg-6 col-md-7 col-sm-7 col-7">{{(vendor.address_line_one) ? vendor.address_line_one : 'NA'}}</span> </div>
+                    <div class="row"><span class="col-lg-3 col-md-5 col-sm-5 col-5"><b></b></span ><span class="col-lg-6 col-md-7 col-sm-7 col-7">{{vendor.address_line_two}}</span> </div>
+                    <div class="row"><span class="col-lg-3 col-md-5 col-sm-5 col-5"><b></b></span ><span class="col-lg-6 col-md-7 col-sm-7 col-7">{{(vendor.city) ? vendor.city + ',' : ''}} {{(vendor.state) ? vendor.state + ',' : ''}} {{(vendor.pin_code) ? vendor.pin_code : ''}}</span> </div>
+                    <div class="row"><span class="col-lg-3 col-md-5 col-sm-5 col-5"><b>GST Number:</b></span ><span class="col-lg-6 col-md-7 col-sm-7 col-7">{{(vendor.gst_number) ? vendor.gst_number : 'NA'}}</span> </div>
+                    <div class="row hidePO"><span class="col-lg-3 col-md-5 col-sm-5 col-5"><b>PO Number:</b></span ><span class="col-lg-6 col-md-7 col-sm-7 col-7">{{(this.purchaseId) ? this.purchaseId : 'NA'}}</span> </div>
+                    <div class="row hidePO"><span class="col-lg-3 col-md-5 col-sm-5 col-5"><b>PO Status:</b></span ><span class="col-lg-6 col-md-7 col-sm-7 col-7">{{this.poStatus}}</span> </div>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1 col-4">
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                    <div class="hideElement row"><div class="col-lg-3 col-md-5 col-sm-5 col-5"></div><div class="col-lg-5 col-md-8 col-sm-5 col-5"><span class="float-left"><b>PO Number:</b></span></div><div class= "col-lg-3 col-md-4 col-sm-7 col-7"><span class="float-right">{{this.purchaseId}}</span></div> </div>
+                    <div class="hideElement row"><div class="col-lg-3 col-md-5 col-sm-5 col-5"></div><div class="col-lg-5 col-md-8 col-sm-5 col-5"><span class="float-left"><b>PO Status:</b></span></div><div class="col-lg-3 col-md-4 col-sm-7 col-7"><span class="float-right">{{this.poStatus}}</span></div> </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <hr>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <!--<table class="table table-bordered table-hover table-sortable"-->
+                           <!--id="tab_logic" [mfData]="vendorItemData" #mf="mfDataTable">-->
+                        <!--<thead>-->
+                        <!--<tr>-->
+
+                            <!--<th class="text-left smart-header">-->
+                                <!--<mfDefaultSorter by="name">-->
+                                    <!--Name-->
+                                <!--</mfDefaultSorter>-->
+                            <!--</th>-->
+                            <!--<th class="text-left smart-header">-->
+                                <!--<mfDefaultSorter by="email">-->
+                                    <!--Price Per Item (₹)-->
+                                <!--</mfDefaultSorter>-->
+                            <!--</th>-->
+                            <!--<th class="text-left smart-header">-->
+                                <!--<mfDefaultSorter by="phone_no">-->
+                                    <!--Quantity-->
+                                <!--</mfDefaultSorter>-->
+                            <!--</th>-->
+                            <!--<th class="text-left smart-header">-->
+                                <!--<mfDefaultSorter by="in_time">-->
+                                    <!--Total Amount (₹)-->
+                                <!--</mfDefaultSorter>-->
+                            <!--</th>-->
+
+                            <!--<th class="smart-header text-center">-->
+                                <!--Actions-->
+                            <!--</th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--<tr *ngFor="let visitor of vendorItemData; let j = index">-->
+                            <!--<td style="padding: 7px 14px 7px 14px" class="text-left">-->
+                                <!--<span>{{visitor.item_name}}</span>-->
+                            <!--</td>-->
+                            <!--<td style="padding: 7px 14px 7px 14px">-->
+                                <!--<input #price (change)="visitor.price = (price.value) ? price.value : 0; getSummation();" placeholder="Price Per Item" [textMask]="{mask: numberMask,guide : false}"-->
+                                       <!--type="text" value="{{visitor.price}}" class="form-control"/>-->
+                            <!--</td>-->
+                            <!--<td style="padding: 7px 14px 7px 14px">-->
+                                <!--<input (change)="visitor.quantity = (quantity.value) ? quantity.value : 0; visitor.total = quantity.value * price.value; getSummation();"-->
+                                       <!--[textMask]="{mask: numberMask,guide : false}" #quantity placeholder="Quantity"-->
+                                       <!--type="text"-->
+                                       <!--class="form-control"/>-->
+                            <!--</td>-->
+                            <!--<td style="padding: 7px 14px 7px 14px">-->
+                                <!--<input #total disabled placeholder="Price" type="text"-->
+                                       <!--value="{{price.value * quantity.value}}"-->
+                                       <!--class="form-control"/>-->
+                            <!--</td>-->
+
+                            <!--<td style="padding: 7px 14px 7px 14px; text-align: center;  width: 6%;">-->
+                                <!--<b><i title="Remove Item" style="color: red; font-weight: 400; cursor: pointer;"-->
+                                    <!--(click)="this.vendorItemData.splice(j,1); getSummation();"   class="fa fa-trash-o"></i></b>-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                        <!--<tfoot>-->
+                        <!--<td style="border-right: none; padding: 7px 14px 7px 14px; text-align: center; width: 9%;">-->
+                        <!--</td>-->
+                        <!--<td style="border-right: none; padding: 7px 14px 7px 14px; text-align: center; width: 9%;">-->
+                        <!--</td>-->
+                        <!--<td style="border-right: none; padding: 7px 14px 7px 14px; text-align: center; width: 9%;">-->
+                            <!--<b> Total (₹) </b>-->
+                        <!--</td>-->
+                        <!--<td style="border-right: none; padding: 7px 14px 7px 14px; text-align: center; width: 9%;">-->
+                            <!--<input disabled placeholder="Total (₹) " type="text" [(ngModel)]="totalAmount"-->
+                                   <!--[textMask]="{mask: numberMask,guide : false}" class="form-control"/>-->
+                        <!--</td>-->
+                        <!--<td style=" text-align: center; width: 6%;">-->
+                        <!--</td>-->
+
+                        <!--</tfoot>-->
+                    <!--</table>-->
+                    <table class="table table-bordered table-hover table-sortable"
+                           id="tab_logic" [mfData]="vendorItemData" #mf="mfDataTable">
+                        <thead>
+                        <tr>
+                            <th class="text-left smart-header">
+                                <mfDefaultSorter by="name">
+                                    Name
+                                </mfDefaultSorter>
+                            </th>
+                            <th class="text-left smart-header">
+                                <mfDefaultSorter by="email">
+                                    Price Per Item ( ₹ )
+                                </mfDefaultSorter>
+                            </th>
+                            <th class="text-left smart-header">
+                                <mfDefaultSorter by="phone_no">
+                                    Quantity
+                                </mfDefaultSorter>
+                            </th>
+                            <th class="text-left smart-header">
+                                <mfDefaultSorter by="phone_no">
+                                    Total ( ₹ )
+                                </mfDefaultSorter>
+                            </th>
+                            <th class="text-left smart-header">
+                                <mfDefaultSorter by="phone_no">
+                                    GST %
+                                </mfDefaultSorter>
+                            </th>
+                            <th class="text-left smart-header">
+                                <mfDefaultSorter by="phone_no">
+                                    GST Price
+                                </mfDefaultSorter>
+                            </th>
+                            <th class="text-left smart-header">
+                                <mfDefaultSorter by="in_time">
+                                    Total Amount ( ₹ )
+                                </mfDefaultSorter>
+                            </th>
+                            <th *ngIf="!isStatusSent"  class="smart-header hideAction text-center">
+                                Actions
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let visitor of vendorItemData; let j = index">
+                            <td style="padding: 7px 14px 7px 14px" class="text-left">
+                                <span>{{visitor.item_name}}</span>
+                            </td>
+                            <td style="padding: 7px 14px 7px 14px">
+                                <input #price (change)="visitor.price = (price.value) ? price.value : 0; visitor.gst_price = (visitor.price * (visitor.gst/100)).toFixed() * visitor.quantity; getSummation();" placeholder="Price Per Item" [textMask]="{mask: numberMask,guide : false}"
+                                       type="text" [disabled]="isStatusSent" value="{{visitor.price}}" class="form-control"/>
+                            </td>
+                            <td style="padding: 7px 14px 7px 14px">
+                                <input (change)="visitor.quantity = (quantity.value) ? quantity.value : 0;visitor.gst_price = (visitor.price * (visitor.gst/100)).toFixed() * visitor.quantity; visitor.total = quantity.value * price.value; getSummation();"
+                                       [textMask]="{mask: numberMask,guide : false}" #quantity placeholder="Quantity"
+                                       type="text" value="{{visitor.quantity}}" [disabled]="isStatusSent"
+                                       class="form-control"/>
+                            </td>
+                            <td style="padding: 7px 14px 7px 14px">
+                                <input #total disabled placeholder="Total" type="text"
+                                       value="{{price.value * quantity.value}}"
+                                       class="form-control"/>
+                            </td>
+                            <td style="padding: 7px 14px 7px 14px">
+                                <input (change)="visitor.gst = (gst.value) ? gst.value : 0;visitor.gst_price = (visitor.price * (visitor.gst/100)).toFixed(2) * visitor.quantity; getSummation();"
+                                       #gst placeholder="GST" [textMask]="{mask: numberMask,guide : false}"
+                                       type="text" value="{{(visitor.gst) ? visitor.gst : 0}}" [disabled]="isStatusSent"
+                                       class="form-control"/>
+                            </td>
+                            <td style="padding: 7px 14px 7px 14px">
+                                <input (change)="visitor.gst_price = (gst_price.value) ? gst_price.value : 0;  getSummation();"
+                                       disabled #gst_price placeholder="GST Price"
+                                       type="text" value="{{((visitor.gst_price) ? visitor.gst_price : (((visitor.price * visitor.quantity) * (visitor.gst/100)) ? ((visitor.price * visitor.quantity) * (visitor.gst/100)) : 0)).toFixed(2)}}"
+                                       class="form-control"/>
+                            </td>
+                            <td style="padding: 7px 14px 7px 14px">
+                                <input #total disabled placeholder="Price" type="text"
+                                       value="{{((price.value * quantity.value) + ((visitor.gst_price) ? visitor.gst_price: (((visitor.price * (visitor.gst/100)) * visitor.quantity) ? ((visitor.price * (visitor.gst/100)) * visitor.quantity) : 0))).toFixed(2)}}"
+                                       class="form-control"/>
+                            </td>
+
+                            <td *ngIf="!isStatusSent" class="hideAction" style="padding: 7px 14px 7px 14px; text-align: center;  width: 6%;">
+                                <b><i title="Remove Item" style="color: red; font-weight: 400; cursor: pointer;"
+                                      (click)="this.vendorItemData.splice(j,1); getSummation();"   class="fa fa-trash-o"></i></b>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <!--<td style="border-right: none; padding: 7px 14px 7px 14px; text-align: center; width: 9%;">-->
+                        <!--</td>-->
+                        <td style="border-right: none; padding: 7px 14px 7px 14px; text-align: center; width: 9%;">
+                        </td>
+                        <td style="border-right: none; padding: 7px 14px 7px 14px; text-align: center; width: 9%;">
+                        </td>
+                        <td style="border-right: none; padding: 7px 14px 7px 14px; text-align: center; width: 9%;">
+                        </td>
+                        <td style="border-right: none; padding: 7px 14px 7px 14px; text-align: center; width: 15%;">
+                        </td>
+                        <td style="border-right: none; padding: 7px 14px 7px 14px; text-align: center; width: 9%;">
+                        </td>
+                        <td style="border-right: none; padding: 7px 14px 7px 14px; text-align: center; width: 12%;">
+                            <b> Total ( ₹ ) </b>
+                        </td>
+                        <td style="border-right: none; padding: 7px 14px 7px 14px; text-align: center; width: 9%;">
+                            <input disabled placeholder="Total ( ₹ ) " type="text" [(ngModel)]="totalAmount"
+                                    class="form-control"/>
+                        </td>
+                        <td *ngIf="!isStatusSent"  class="hideAction" style=" text-align: center; width: 6%;">
+                        </td>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <hr>
+                </div>
+                <div style="margin-top: 15px" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div style="margin-bottom: 15px"><b>Terms & conditions:</b></div>
+                    <div [innerHTML]="vendorTermsData">
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <hr>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <span class="col-lg-3 col-md-4 col-sm-5 col-xs-6"><b>Company Name:</b></span>
+                        <span class="col-lg-5 col-md-5 col-sm-7 col-xs-6">Tudip Technologies Pvt Ltd</span>
+                    </div>
+                    <div class="row">
+                        <span class="col-lg-3 col-md-4 col-sm-5 col-xs-6"><b>Complete Postal Address with Pin:</b></span>
+                        <span class="col-lg-5 col-md-5 col-sm-7 col-xs-6"> S. No. 241/3/A, Datta Mandir Road, Wakad, Pune 411057</span>
+                    </div>
+                    <div class="row"><span class="col-lg-3 col-md-4 col-sm-5 col-xs-6"><b>Company PAN Number:</b></span>
+                        <span class="col-lg-5 col-md-5 col-sm-7 col-xs-6"> AADCT4061E</span>
+                    </div>
+                    <div class="row"><span class="col-lg-3 col-md-4 col-sm-5 col-xs-6"><b>GST Number:</b></span>
+                        <span class="col-lg-5 col-md-5 col-sm-7 col-xs-6"> 27AADCT4061E1ZJ</span>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <hr>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    Thanking You,
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group inputbutton submitButton">
+                    <button (click)="cancelPurchaseOrders()" class="btnStyle btnBackStyle"> Cancel</button>
+                    <button [ngClass]="{'disableSubmit' : (totalAmount == 0) }" [disabled]="(totalAmount == 0)" class="btnStyle btnNext"
+                            (click)="addPurchaseTab()">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="confirmUserActiveContainer">
+    <modal #deleteVendorModal [closeOnOutsideClick]="false">
+        <modal-header>
+            <div class="test"><span class="headerText">Are you sure you want to delete Category?</span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer">
+                <div class="confirmButtons">
+                    <div class="noButton">
+                        <button class="noConfirm" (click)="deleteVendorModal.close()">No</button>
+                    </div>
+                    <div class="yesButton">
+                        <button class="yesConfirm" (click)="deleteTagFinal()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </modal-content>
+    </modal>
+</div>
+
+<div class="confirmUserActiveContainer">
+    <modal #sendPurchaseModal>
+        <modal-header>
+            <div class="test"><span class="headerText">Are you sure you want to send Purchase Order to Vendor?</span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer">
+                <div class="confirmButtons">
+                    <div class="noButton">
+                        <button class="noConfirm" (click)="sendPurchaseModal.close()">No</button>
+                    </div>
+                    <div class="yesButton">
+                        <button class="yesConfirm" (click)="sendToVendor()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </modal-content>
+    </modal>
+</div>

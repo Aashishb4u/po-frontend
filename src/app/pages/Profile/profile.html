@@ -1,0 +1,216 @@
+<div style="display: none" class="main-campaign">
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <div class="wizard">
+                <div  class="profileTab disableTab" [ngClass]="{'currentTab' : settingComponent}" id="setting"><a><i class="fa fa-cog profileIcon" aria-hidden="true"></i><span class="tabText">Settings</span></a>
+                </div>
+                <div class="profileTab" [ngClass]="{'currentTab' : passwordComponent}" id="password"
+                     (click)="changeTab('password')"><a><i class="fa fa-key profileIcon" aria-hidden="true"></i><span class="tabText">Change
+                    Password</span></a></div>
+                <div class="profileTab disableTab" [ngClass]="{'currentTab' : notificationComponent}" id="notification"
+                ><a><i class="fa fa-bell profileIcon" aria-hidden="true"></i><span class="tabText">Notifications</span></a>
+                </div>
+                <!--(click)="changeTab('notification')"-->
+                <div class="profileTab disableTab" [ngClass]="{'currentTab' : accreditionComponent}" id="accredition"
+                ><a><i class="fa fa-file profileIcon" aria-hidden="true"></i><span class="tabText">Accreditation</span></a>
+                </div>
+                <!--(click)="changeTab('accredition')"-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="profileContainer">
+    <div class="profileContent divAlignLeft" *ngIf="settingComponent">
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+            <div class="col-md-12 profileForm divAlignLeft">
+                <!--image section-->
+                <div class="col-md-12 divAlignLeft userImageContainer">
+                    <div class="col-md-12 sectionTitleImage">
+                        Profile Picture
+                    </div>
+                    <div class="col-md-3 userImageDiv">
+                        <div class="userImage">
+                            <img class="userProfileImage" [src]="imageUrl">
+                        </div>
+                    </div>
+                    <div class="col-md-9 profileDiv">
+                        <!--<p class="small">Choose your profile pic.</p>-->
+                        <input formControlName="chooseImage" #fileUpload class="profileImage" type="file"
+                               (change)="fileChangeListener($event)">
+                    </div>
+                </div>
+
+                <!--url section-->
+                <div class="col-md-12 divAlignLeft userUrlContainer">
+                    <div class="col-md-12 userUrl">
+                        Your Profile URL
+                    </div>
+                    <div class="col-md-12 userUrlMessage">
+                        Your profile will be accessible from the following URL
+                    </div>
+                    <div class="col-md-12 userUrlBox">
+                        <div class="col-md-12 userUrlInner">
+                            <input type="text" class="userUrlButton" value="http://equity.tudip.uk/user">
+                        </div>
+                    </div>
+                    <div class="col-md-12 buttonsUrl">
+                        <div>
+                            <input type="button" class="urlCancelButtons" value="CANCEL">
+
+                            <input type="button" class="urlButtons" value="SAVE">
+                        </div>
+                    </div>
+                </div>
+
+                 <!--user info section-->
+                <div class="col-md-12 divAlignLeft">
+                    <div class="col-md-12 sectionTitle">
+                        User Information
+                    </div>
+                    <div class="col-md-6 profileInput">
+                        <div>
+                            <label class="labelStyle">First Name&nbsp;<i class="required">*</i></label>
+                            <input formControlName="firstName" type="text" class="form-control" #firstName (blur)="firstName.value = trimContent(firstName.value, 'firstName')" maxlength="30">
+                        </div>
+                        <div class="profileErrorMessage">
+                             <span *ngIf="!form.get('firstName').valid && form.get('firstName').touched"
+                                   class="help-block sub-little-signUp-error">First Name is required.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 profileInput">
+                        <div>
+                            <label class="labelStyle">Last Name&nbsp;<i class="required">*</i></label>
+                            <input formControlName="lastName" type="text" class="form-control" #lastName (blur)="lastName.value = trimContent(lastName.value, 'lastName')" maxlength="30">
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!form.get('lastName').valid && form.get('lastName').touched"
+                                  class="help-block sub-little-signUp-error">Last Name is required.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 divAlignLeft">
+                    <div class="col-md-6 profileInput">
+                        <div style="">
+                            <label class="labelStyle">Email&nbsp;<i class="required">*</i></label>
+                            <input disabled formControlName="email" type="text" class="form-control" maxlength="60">
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!form.get('email').valid && form.get('email').touched"
+                                  class="help-block sub-little-signUp-error">Email is required and must be valid.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 profileInput">
+                        <div>
+                            <label class="labelStyle">Mobile Number</label>
+                            <input formControlName="phoneNumber" type="text" class="form-control"
+                                   minlength="12" maxlength="12"  ngControl="phoneNumber"
+                               onkeyup="var x =this.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                                        this.value = !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '')+(x[4] ? '-' + x[4] : '');"
+                               onkeypress="if(event.charCode < 48 || event.charCode > 57){return false};" >
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!form.get('phoneNumber').valid && form.get('phoneNumber').touched"
+                              class="help-block sub-little-signUp-error">
+                                Phone number should have 10 digits.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 form-group inputbutton submitButton" style="float: left;">
+                    <button [ngClass]="{'disableSubmit' : (!form.valid || submitted) }"
+                            [disabled]="!form.valid || submitted" type="submit" class="btnStyle">UPDATE PROFILE
+                    </button>
+                    <!--<button [disabled]="form.invalid" type="submit" class="btnStyle">UPDATE PROFILE-->
+                    <!--</button>-->
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <!--Change Password page-->
+    <div class="profileContent changePasswordContent" *ngIf="passwordComponent">
+        <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePasswordSubmit(changePasswordForm.value)">
+            <div class="col-md-12 divAlignLeft">
+
+                    <!--current password-->
+                    <!--<div class="form-group  col-md-6  changePasswordInput"-->
+                         <!--[ngClass]="{'has-error': (!changePasswordForm.get('password').valid && changePasswordForm.get('password').touched),-->
+                                     <!--'has-success': (changePasswordForm.get('password').valid && changePasswordForm.get('password').touched)}">-->
+                        <!--<div class="input-group">-->
+                                        <!--<span class="input-group-addon" id="basic-addon1"><i class="fa fa-key"-->
+                                                                                             <!--aria-hidden="true"></i></span>-->
+                            <!--<input #currentPasswordField formControlName="password" type="password"-->
+                                   <!--class="form-control right-border"-->
+                                   <!--id="inputPassword1" placeholder="Current password" autocomplete="off" maxlength="16">-->
+                        <!--</div>-->
+                        <!--<div class="changePasswordErrorMessage">-->
+                                        <!--<span *ngIf="!changePasswordForm.get('password').valid && changePasswordForm.get('password').touched"-->
+                                              <!--class="help-block sub-little-signUp-error">Password must be 8 characters long.</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+
+
+                    <div class="confirmButtonsContainer col-md-6" formGroupName="passwords">
+                        <!--new password-->
+                        <div class="form-group col-md-12 divAlignLeft confirmPassword changePasswordInput"
+                             [ngClass]="{'has-error': (!changePasswordForm.get('passwords').get('newPassword').valid && changePasswordForm.get('passwords').get('newPassword').touched  || showError),
+                                     'has-success': (changePasswordForm.get('passwords').get('newPassword').valid && changePasswordForm.get('passwords').get('newPassword').touched)}">
+
+                            <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon2"><i class="fa fa-key"
+                                                                                                 aria-hidden="true"></i></span>
+                                <input formControlName="newPassword" type="password"
+                                       class="form-control right-border"
+                                       id="inputPassword5" placeholder="New password" autocomplete="off" maxlength="16">
+                            </div>
+                            <div class="changePasswordErrorMessage">
+                            <span *ngIf="showError"
+                                  class="help-block sub-little-signUp-error confpass">New password can't be the same as current password.</span>
+                            </div>
+                            <div class="changePasswordErrorMessage">
+                                        <span *ngIf="!changePasswordForm.get('passwords').get('newPassword').valid && changePasswordForm.get('passwords').get('newPassword').touched"
+                                              class="help-block sub-little-signUp-error">Password must be 8 characters long.</span>
+                            </div>
+                        </div>
+                          <!--confirm password-->
+                        <div class="form-group col-md-12 divAlignLeft confirmPassword changePasswordInput"
+                             [ngClass]="{'has-error':!changePasswordForm.get('passwords').valid && (changePasswordForm.get('passwords').get('newPassword').touched && changePasswordForm.get('passwords').get('confirmPassword').touched),
+                                     'has-success': (changePasswordForm.get('passwords').get('confirmPassword').valid && changePasswordForm.get('passwords').get('confirmPassword').touched)}">
+                            <div class="input-group">
+                                            <span class="input-group-addon" id="basic-addon3"><i class="fa fa-key"
+                                                                                                 aria-hidden="true"></i></span>
+                                <input formControlName="confirmPassword" type="password"
+                                       class="form-control right-border" id="inputPassword6"
+                                       placeholder="Confirm Password" autocomplete="off" maxlength="16">
+                            </div>
+                            <div class="changePasswordErrorMessage">
+                                            <span *ngIf="!changePasswordForm.get('passwords').valid && (changePasswordForm.get('passwords').get('newPassword').touched && changePasswordForm.get('passwords').get('confirmPassword').touched)"
+                                                  class="help-block sub-little-signUp-error">Password doesn't match.</span>
+                            </div>
+                        </div>
+                        <div class=" divAlignRight form-group inputbutton submitButton">
+                            <button style="width: 200px; margin-right: 0" [ngClass]="{'disableSubmit' : (!changePasswordForm.valid || submitted || showError) }"
+                                    [disabled]="!changePasswordForm.valid || submitted || showError" type="submit" class="btnStyle">SUBMIT
+                            </button>
+                        </div>
+                    </div>
+
+
+
+
+            </div>
+        </form>
+    </div>
+    <div class="" *ngIf="notificationComponent">
+        <h2>Notification</h2>
+    </div>
+    <div class="" *ngIf="accreditionComponent">
+        <h2>Acc</h2>
+    </div>
+</div>

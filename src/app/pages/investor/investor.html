@@ -1,0 +1,33 @@
+<div class="investorContainer">
+    <div class="investorGridContainer">
+        <div  class="investorGridAction">
+            <div class="investorGridSearchContainer">
+                <div class="input-group investorGridSearchInput">
+                    <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    <input class="search right-border searchbox" #searchBox (keyup)="searchUsers(searchBox.value)" placeholder="Search"/>
+                </div>
+            </div>
+            <div class="investorGridActionContainer">
+                <div class="investorGridExport"> <a class="export" (click)="exportInvestors()"><i class="fa fa-download"></i></a></div>
+                <div class="investorGridActionAdd">
+                    <button class="add" (click) ="navigateToAddUser()"><i class="fa fa-plus"></i>&nbsp;Add User</button>
+                </div>
+            </div>
+        </div>
+        <div class="investorGridDataParentContainer">
+            <div id="foo" class="investorGridDataContainer">
+                <ng2-smart-table [settings]="settings" [source]="source"
+                             (editConfirm)="onSaveConfirm($event)"
+                             (edit)="editUser($event)"
+                             (delete)="confirmDelete($event)">
+                </ng2-smart-table>
+            </div>
+            <div class="paginationControl">
+                <div *ngFor='let data of userList | paginate : { itemsPerPage:per_page, currentPage:current_page, id : "listItem", totalItems: totalCount }'></div>
+                <pagination-controls class="pageControl" (pageChange)="getPageData($event)" id="listItem"
+                                     nextLabel="Next">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

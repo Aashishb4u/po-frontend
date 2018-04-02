@@ -1,0 +1,61 @@
+<div class="addUserContainer">
+    <div class="profileContent">
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+            <div class="col-md-12 row profileForm">
+                <div class="col-md-6" style="padding-bottom: 30px;">
+                    <div>
+                    <label class="labelStyle">First Name</label>
+                    <input #firstName formControlName="firstName" type="text" class="form-control">
+                    </div>
+                    <div class="profileErrorMessage">
+                    <span *ngIf="!form.get('firstName').valid && form.get('firstName').touched"
+                          class="help-block sub-little-signUp-error confpass">First name is required.</span>
+                    </div>
+                </div>
+                <div class="col-md-6" style="padding-bottom: 30px;">
+                    <div>
+                        <label class="labelStyle">Last Name</label>
+                        <input formControlName="lastName" type="text" class="form-control">
+                    </div>
+                    <div class="profileErrorMessage">
+                    <span *ngIf="!form.get('lastName').valid && form.get('lastName').touched"
+                          class="help-block sub-little-signUp-error confpass">last name is required.</span>
+                    </div>
+                </div>
+                <div class="col-md-6" style="padding-bottom: 30px;">
+                    <div>
+                        <label class="labelStyle">Email</label>
+                        <input formControlName="email" type="text" class="form-control">
+                    </div>
+                    <div class="profileErrorMessage">
+                    <span *ngIf="!form.get('email').valid && form.get('email').touched"
+                          class="help-block sub-little-signUp-error confpass">Email is required and must be valid.</span>
+                    </div>
+                </div>
+                <div class="col-md-6" style="padding-bottom: 30px;">
+                    <div>
+                        <label class="labelStyle">Mobile No.</label>
+                        <!--<input formControlName="email" type="text" class="form-control">-->
+                        <input formControlName="phoneNumber" type="text" class="form-control"
+                               placeholder="Phone Number" pattern="^([0-9/-]+\s?)*$" maxlength="12"
+                               onkeyup="if(event.keyCode == 8 || event.keyCode == 46 || event.keyCode == 37 || event.keyCode == 39) {
+                           return true;
+                       }else{
+                       var x =this.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                               this.value = !x[2] ? x[1] : x[1] + '-' + x[2] + (x[3] ? '-' + x[3] : '')+(x[4] ? '-' + x[4] : '');
+                          }">
+                    </div>
+                    <div class="profileErrorMessage">
+                    <span *ngIf="!form.get('phoneNumber').valid && form.get('phoneNumber').touched"
+                          class="help-block sub-little-signUp-error confpass">Mobile Number is required.</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group inputbutton submitButton">
+                    <button [ngClass]="{'disableSubmit' : (!form.valid) }"
+                           [disabled]="!form.valid" type="submit" class="btnStyle">ADD USER</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="profileContainer">
+    <div class="row col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class=" col-lg-6 col-md-6 col-sm-6 col-12">
+            <label>Select Vendor</label>
+            <select [(ngModel)]="this.vendorId" (change)="onSelectVendorId($event.target.value)" class="form-control text-capitalize pull-right">
+                <option value="0" disabled selected> Vendors</option>
+                <option *ngFor="let vendor of vendorNamesData" value="{{vendor.id_user}}">{{vendor.company_name}}</option>
+            </select>
+        </div>
+        <div class="adjustButton col-lg-6 col-md-6 col-sm-6 col-12">
+            <button (click)="onAddPurchaseOrder()" type="button"
+               [disabled]="(itemsEmpty || disablePurchaseButton)" class="btn btn-primary purchase_adjust pull-left "><i class="add-item-icon ion-plus-round"></i>
+                Create Purchase Order
+            </button>
+
+            <!--<button style="margin-left:1%;margin-bottom: 10px" (click)="addVendor()" type="button"-->
+                    <!--class="btn btn-danger alignDeleteButton pull-left ">-->
+                <!--Buy-->
+            <!--</button>-->
+            <!--<button [disabled]="disableBuyButton" style="width:100%;margin-top: 24px;" type="button" (click)="buyItemsOnSelect()"-->
+                    <!--class="btn btn-danger"> Buy-->
+            <!--</button>-->
+        </div>
+    </div>
+    <div style="margin-top: 15px" class="row col-lg-12 col-md-12 col-sm-12 col-12">
+        <div *ngIf="!this.settingComponent" class="col-lg-12 col-md-12 col-sm-12 col-12 smarttable" type="html">
+            <div class="noData"><i>No Data available</i></div>
+        </div>
+        <div id="vendorPurchaseTable" *ngIf="this.settingComponent" class="col-lg-12 col-md-12 col-sm-12 col-12 smarttable" type="html">
+                <ng2-smart-table [settings]="purchaseSettings"
+                                 [source]="source"
+                                 (edit)="editPurchaseTab($event)"
+                                 (custom)="onCustom($event)"
+                                 (delete)="removePurchaseTab($event)">
+                </ng2-smart-table>
+            <div class="paginationControl">
+                <div *ngFor='let data of purchaseList | paginate : { itemsPerPage: this.perPageData, currentPage: current_page, id : "listItem", totalItems: totalCount }'></div>
+                <pagination-controls class="pageControl" (pageChange)="getPageData($event)" id="listItem"
+                                     nextLabel="Next">
+                </pagination-controls>
+            </div>
+        </div>
+
+            <!--<ng2-smart-table [settings]="settings"-->
+                             <!--[source]="source"-->
+                             <!--(edit)="editVendor($event)"-->
+                             <!--(userRowSelect) = onSelectVendorsItem($event);-->
+                             <!--(custom)="onCustom($event)"-->
+                             <!--(delete)="deleteVendorItemButton($event.data.id_item)">-->
+            <!--</ng2-smart-table>-->
+    </div>
+</div>
+
+<div class="confirmUserActiveContainer">
+    <modal #sendPurchaseModal>
+        <modal-header>
+            <div class="test"><span class="headerText">Are you sure you want to send Purchase Order to Vendor?</span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer">
+                <div class="confirmButtons">
+                    <div class="noButton">
+                        <button class="noConfirm" (click)="sendPurchaseModal.close()">No</button>
+                    </div>
+                    <div class="yesButton">
+                        <button class="yesConfirm" (click)="sendToVendor()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </modal-content>
+    </modal>
+</div>
+
+<div class="confirmUserActiveContainer">
+    <modal #deletePurchaseModal>
+        <modal-header>
+            <div class="test"><span class="headerText">Are you sure you want to delete Purchase Order?</span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer">
+                <div class="confirmButtons">
+                    <div class="noButton">
+                        <button class="noConfirm" (click)="deletePurchaseModal.close()">No</button>
+                    </div>
+                    <div class="yesButton">
+                        <button class="yesConfirm" (click)="deletePurchaseOrder()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </modal-content>
+    </modal>
+</div>

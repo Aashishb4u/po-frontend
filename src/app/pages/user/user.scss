@@ -1,0 +1,168 @@
+@import "../../theme/sass/_auth";
+@import "../../../styles";
+@import "../../theme/sass/mixins";
+
+$font-size: 13px;
+
+///* Safari 4.0 - 8.0 */
+//@-webkit-keyframes mymove {
+//  from {right: -1261px}
+//  to {left: 181px}
+//}
+//
+///* Standard syntax */
+//@keyframes mymove {
+//  from {left: -1261px}
+//  to {left: 181px}
+//}
+
+.userContainer {
+  width: 95%;
+  margin: 78px 2.5% 50px 2.5%;
+  //position: relative;
+  overflow-y: hidden;
+  //-webkit-animation-name: mymove; /* Safari 4.0 - 8.0 */
+  //-webkit-animation-duration: 3s; /* Safari 4.0 - 8.0 */
+  //-webkit-animation-delay: 0s; /* Safari 4.0 - 8.0 */
+  //animation-name: mymove;
+  //animation-duration: 3s;
+  //animation-delay: 0s;
+  //animation-timing-function: ease-in-out;
+  //-webkit-animation-timing-function: ease-in-out;
+  .userGridContainer {
+    width: 99%;
+    float: left;
+    border-radius: $border-radius;
+    margin-top: 35px;
+    .userGridAction {
+      padding: 0 15px;
+      width: 100%;
+      float: left;
+      position: relative;
+      margin-bottom: 10px;
+      overflow-y: auto;
+      background: #fff;
+      border-radius: $border-radius;
+      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+      .userGridSearchContainer {
+        width: 67%;
+        float: left;
+        padding: 1% 0;
+        .userGridSearchInput {
+          @include gridSearchInput();
+        }
+        @include inputRightBorder($border-radius);
+        .input-group {
+          margin-bottom: 0;
+          @include inputAddOnBorder($border-radius);
+        }
+        @include placeholderColor(gainsboro);
+      }
+      .userGridActionContainer {
+        width: 33%;
+        float: right;
+        padding: 1% 0;
+        .userGridExport {
+          width: 50%;
+          float: left;
+          padding: 5px;
+
+          .export {
+            float: right;
+            padding-right: 5px;
+            font-size: 20px;
+            margin-top: 15px;
+            color: $signin-link-color;
+            cursor: pointer;
+            outline: none;
+            border: none;
+          }
+        }
+        .userGridActionAdd {
+          @include addButtonContainer();
+        }
+      }
+    }
+    .ng2-smart-titles {
+        color : #374767 !important;
+    }
+    .userGridDataParentContainer {
+      min-height: 485px;
+      background: #ffffff;
+      margin-top: 76px;
+      overflow-y: auto;
+      //width: 100%;
+    }
+    .userGridDataContainer {
+      width: 100%;
+      overflow-y: auto;
+      background: #fff;
+      border-radius: 3px;
+      position: relative;
+    }
+  }
+}
+
+.confirmUserActiveContainer {
+  @include confirmDialogueActiveInActive();
+}
+
+.modal-backdrop.fade {
+  opacity: 0.6;
+}
+
+
+@media screen and (min-width: 200px) and (max-width: 575px) {
+  .userContainer {
+    .userGridContainer {
+      .userGridAction {
+        .userGridSearchContainer {
+          width: 40%;
+          .userGridSearchInput{
+            width: 100%;
+            .input-group-addon {
+              padding: 0.2rem 0.50rem;
+              margin-bottom: 0;
+              font-size: 1rem;
+            }
+          }
+        }
+        .userGridActionContainer {
+          width: 60%;
+          .userGridExport {
+          width:40%;
+          }
+          .userGridActionAdd {
+            width:60%;
+          }
+        }
+
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 767px) {
+  .userContainer {
+    .userGridContainer {
+      .userGridAction {
+        .userGridSearchContainer {
+          width: 40%;
+          .userGridSearchInput{
+            width: 80%;
+
+          }
+        }
+        .userGridActionContainer {
+          width: 60%;
+          .userGridExport {
+            width:50%;
+          }
+          .userGridActionAdd {
+            width:50%;
+          }
+        }
+      }
+    }
+  }
+}

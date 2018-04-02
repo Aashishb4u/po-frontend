@@ -1,0 +1,275 @@
+@import "../../../styles";
+@import "../../theme/sass/_auth";
+
+$font-size: 13px;
+
+.browseOfferingTabs {
+  padding-top: 110px;
+  //Profile Tab CSS
+  .panel {
+    .panel-body {
+      .wizard {
+        min-width: 95%;
+        float: left;
+        background: #fff;
+        margin: 0 2.5%;
+        border: 1px solid #E0E0E0;
+        .offeringTab {
+          width: 20%;
+          float: left;
+          text-align: center;
+          border-right: 1px solid #E0E0E0;
+          height: 50px;
+          line-height: 50px;
+          cursor: pointer;
+          font-size: 12px;
+          &:last-child {
+            border-right: none;
+          }
+          a {
+            text-transform: uppercase;
+            .profileIcon {
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+      .currentTab {
+        font-size: 14px !important;
+        border-bottom: 3px solid $btn-color;
+        color: $btn-color;
+      }
+      .disableTab {
+        cursor: not-allowed !important;
+      }
+    }
+  }
+}
+
+.browseOfferingContainer {
+  margin: 91px 2.5% 50px 2.5%;
+  padding: 15px;
+  background: white;
+  min-width: 95%;
+  overflow-y: auto;
+  border-radius: $border-radius;
+  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+
+  .browseOfferingContent {
+    margin-top: 2%;
+    width:100%;
+    .offerContainer {
+      padding:0;
+      .tileContainer {
+        padding: 0;
+        .offeringDiv{
+          padding-right: 0;
+          .offeringTile {
+            display: inline-block;
+            border: 1px solid $border-universal-color;
+            width: 31.33%;
+            margin-right: 2%;
+            padding: 0;
+            margin-bottom: 20px;
+            .imageContainer{
+              height:200px;
+              img {
+                width: 100%;
+                height:100%
+              }
+            }
+
+            .offeringTitleDiv {
+              text-align: center;
+              padding-bottom: 10px;
+              cursor: pointer;
+              .offeringTitle {
+                padding: 10px;
+                font-size: 15px;
+                font-weight: 700;
+                display: block;
+                color: $add-btn-color;
+                line-height: 1.3em;
+              }
+              .offeringSubText {
+                font-size: 12px;
+                padding: 1px;
+              }
+            }
+
+            .offeringList{
+              border-top: 1px solid $border-universal-color;
+              list-style: none;
+              padding: 0;
+              margin: 0;
+              .offeringListItem {
+                padding: 10px;
+                border-bottom: 1px solid $border-universal-color;
+                label {
+                  margin-bottom: 0;
+                }
+                span {
+                  float: right;
+                }
+              }
+            }
+            .progressBarContainer {
+              padding: 10px;
+              /* border-radius: 10px; */
+              border-top: 1px solid $border-universal-color ;
+              background-color: #fff;
+              .progressBarDiv {
+                padding: 0;
+                border-radius: 10px;
+                background-color: #f1f3f6;
+                .progress-bar {
+                  /* float: left; */
+                  border-radius: 10px;
+                  text-align: center;
+                  font-size: 12px;
+                  background-color: #59a453;
+                  color: #ffffff;
+                  font-weight: 700
+                }
+              }
+            }
+          }
+        }
+      }
+      .sideContainer {
+        padding: 0;
+        border:1px solid #f1f3f6;
+        .contentBlock {
+          border-bottom: 1px solid #f1f3f6;
+          padding: 4% 4% 4% 8%;
+          background-color: #f1f3f6;
+          .categories {
+            cursor: pointer
+          }
+        }
+        .sidebarContent{
+          padding: 4% 4% 4% 8%;
+        }
+      }
+
+    }
+
+  }
+}
+
+
+@media only screen and (min-width: 320px) and (max-width: 580px) {
+
+  .browseOfferingTabs {
+    padding-top: 110px;
+    //Profile Tab CSS
+    .panel {
+      .panel-body {
+        .wizard {
+          margin-bottom: 20px;
+          border-right: none;
+          .offeringTab {
+            width: 50%;
+            border-bottom: 1px solid #E0E0E0;
+            &:last-child {
+              width:100%;
+              border-bottom: none;
+              border-right: 1px solid #E0E0E0;
+            }
+          }
+          .currentTab {
+            font-size: 14px !important;
+            border-bottom: 3px solid $btn-color !important;
+            color: $btn-color;
+          }
+        }
+      }
+    }
+  }
+  .browseOfferingContainer {
+    .browseOfferingContent {
+      .offerContainer {
+        .tileContainer {
+          .offeringDiv{
+            padding-right: 0;
+            .offeringTile {
+              min-width: 0;
+              width: 90%;
+              margin: 0 5% 20px 5%;
+              .imageContainer{
+                img {
+                  object-fit: scale-down;
+                }
+              }
+            }
+          }
+        }
+        .sideContainer {
+          padding: 0;
+          border:1px solid #f1f3f6;
+          width: 87%;
+          float: left;
+          margin: 0 0 0 9%;
+        }
+      }
+    }
+  }
+}
+
+
+@media only screen and (min-width: 581px) and (max-width: 767px) {
+  .browseOfferingContainer {
+    .browseOfferingContent {
+      .offerContainer {
+        .tileContainer {
+          .offeringDiv{
+            padding-right: 0;
+            .offeringTile {
+              min-width: 0;
+              width: 47.33%;
+              margin-right: 2.5%;
+              .imageContainer{
+                img {
+                }
+              }
+            }
+          }
+        }
+        .sideContainer {
+          padding: 0;
+          border:1px solid #f1f3f6;
+          margin-left: 15px;
+          width: 46.33%;
+          float: left;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 581px) and (max-width: 935px) {
+  .browseOfferingTabs {
+    .panel {
+      .panel-body {
+        .wizard {
+          margin-bottom: 20px;
+          border-right: none;
+          .offeringTab {
+            width: 25%;
+            border-bottom: 1px solid #E0E0E0;
+            &:last-child {
+              width: 100%;
+              border-bottom: none;
+              border-right: 1px solid #E0E0E0;
+            }
+          }
+          .currentTab {
+            font-size: 14px !important;
+            border-bottom: 3px solid $btn-color !important;
+            color: $btn-color;
+          }
+        }
+      }
+    }
+  }
+}

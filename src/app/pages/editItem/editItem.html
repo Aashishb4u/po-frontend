@@ -1,0 +1,538 @@
+<div class="main-campaign">
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <div class="wizard">
+                <div class="profileTab" [ngClass]="{'currentTab' : contactTab}" id="setting"
+                     (click)="changeTab('item_info')"><a><i class="fa fa-pencil-square-o" aria-hidden="true"></i><span
+                        class="tabText">  Item Information </span></a>
+                </div>
+
+                <div (click)="changeTab('purchase')" class="profileTab" [ngClass]="{'currentTab' : purchaseTab}" id="notification">
+                    <a><i class="fa fa-balance-scale" aria-hidden="true"></i><span class="tabText"> Item's Quantity </span></a>
+                </div>
+
+                <div class="profileTab" [ngClass]="{'currentTab' : financeTab}" id="password"
+                     (click)="changeTab('item_vendors')"><a><i class="fa fa-user-o" aria-hidden="true"></i><span
+                        class="tabText">  Item Vendors </span></a>
+                </div>
+
+
+                <!--<div class="profileTab disableTab" [ngClass]="{'currentTab' : paymentTab}" id="accredition">-->
+                    <!--<a><i class="fa fa-file-text-o" aria-hidden="true"></i><span-->
+                            <!--class="tabText">  Payment Receipt </span></a>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="addUserContainer">
+
+    <div class="profileContent">
+
+        <form *ngIf="this.contactTab" [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+            <div class="col-md-12 row profileForm">
+                <div class="col-md-4 adjustBottom">
+                    <div>
+                        <label class="labelStyle required"> Item Name </label>
+                    </div>
+                </div>
+
+                <div class="col-md-8 adjustBottom">
+                    <div [ngClass]="{'has-error': (form.controls['itemName'].invalid && form.controls['itemName'].touched), 'has-success': (form.controls['itemName'].valid && form.controls['itemName'].touched)}">
+                        <input maxlength="30" placeholder="Item Name" #firstName formControlName="itemName" type="text" class="text-capitalize form-control">
+                    </div>
+                    <div class="profileErrorMessage">
+                        <div class="profileErrorMessage">
+                            <span *ngIf="(!form.get('itemName').valid && form.get('itemName').touched) && form.get('itemName').value != '' "
+                                  class="help-block sub-little-signUp-error confpass"> Please Enter Valid Item Name </span>
+                            <span *ngIf="form.get('itemName').touched && form.get('itemName').value.trim() == '' "
+                                  class="help-block sub-little-signUp-error confpass"> Item Name is Required </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 adjustBottom">
+                    <div >
+                        <label class="labelStyle required"> Description </label>
+                    </div>
+                </div>
+                <div class="col-md-8 adjustBottom">
+                    <div [ngClass]="{'has-error': (form.controls['description'].invalid && form.controls['description'].touched), 'has-success': (form.controls['description'].valid && form.controls['description'].touched)}">
+                        <textarea maxlength="120" placeholder="Description" formControlName="description" class="text-capitalize form-control" ></textarea>
+                    </div>
+                    <div class="profileErrorMessage">
+                        <div class="profileErrorMessage">
+                            <span *ngIf="(!form.get('description').valid && form.get('description').touched) && form.get('description').value != '' "
+                                  class="help-block sub-little-signUp-error confpass"> Please Enter Valid Description </span>
+                            <span *ngIf="form.get('description').touched && form.get('description').value.trim() == '' "
+                                  class="help-block sub-little-signUp-error confpass"> Description is Required </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 adjustBottom">
+                    <div >
+                        <label class="labelStyle required"> Categories  </label>
+                    </div>
+                </div>
+                <div class="col-md-8 adjustBottom">
+                    <div [ngClass]="{'has-error': (form.controls['categories'].invalid && form.controls['categories'].touched), 'has-success': (form.controls['categories'].valid && form.controls['categories'].touched)}">
+                        <!--<rl-tag-input [placeholder]='placeHolderForTag' [autocompleteMustMatch]="true" [autocompleteItems]="tagsArray" [autocomplete]="true" formControlName="categories" (removeTag)="removeCandidatetags($event);" (addTag)="addCandidatetags(event)"></rl-tag-input>-->
+                        <select formControlName="categories" [(ngModel)]="this.categoryData" (change)="checkValue()" multiple size="6" class="form-control text-capitalize selectBox" >
+                            <option  *ngFor="let tag of tagsArray" value="{{tag.id}}">{{tag.name}}</option>
+                        </select>
+                    </div>
+                    <div class="profileErrorMessage">
+                        <div class="profileErrorMessage">
+                            <span *ngIf="form.controls['categories'].dirty && form.controls['categories'].invalid"
+                                  class="help-block sub-little-signUp-error confpass"> Categories are Required </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 adjustBottom">
+                    <div>
+                        <label class="labelStyle "> GST ( % ) </label>
+                    </div>
+                </div>
+
+                <div class="col-md-8 adjustBottom">
+                    <div [ngClass]="{'has-error': (form.controls['gst'].invalid && form.controls['gst'].touched), 'has-success': (form.controls['gst'].valid && form.controls['gst'].touched)}">
+                        <input placeholder="GST" [textMask]="{mask: gstMask,guide : false}"  formControlName="gst" type="text" class="form-control">
+                    </div>
+                    <div class="profileErrorMessage">
+                        <span *ngIf="(!form.get('gst').valid && form.get('gst').touched) && form.get('gst').value != '' "
+                              class="help-block sub-little-signUp-error confpass"> Please Enter Valid GST % </span>
+                    </div>
+                </div>
+
+                <div class="col-md-4 adjustBottom">
+                    <div>
+                        <label class="labelStyle "> Almirah </label>
+                    </div>
+                </div>
+
+                <div class="col-md-8 adjustBottom">
+                    <div>
+                        <select formControlName="location" (change)="this.selectLocation($event)" class="form-control text-capitalize selectBox" [ngClass]="{'has-error': (form.controls['location'].invalid && form.controls['location'].touched), 'has-success': (form.controls['location'].valid && form.controls['location'].touched)}">
+                            <option value ="" disabled selected> Almirah </option>
+                            <option  *ngFor="let location of locationArray" value="{{location.id}}">{{location.name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4 adjustBottom">
+                    <div>
+                        <label class="labelStyle "> On Hand Quantity </label>
+                    </div>
+                </div>
+
+                <div class="col-md-8 adjustBottom">
+                    <div [ngClass]="{'has-error': (form.controls['available_quantity'].invalid && form.controls['available_quantity'].touched), 'has-success': (form.controls['available_quantity'].valid && form.controls['available_quantity'].touched)}">
+                        <input disabled placeholder="On Hand Quantity"  formControlName="available_quantity" type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 row" *ngIf="this.contactTab">
+                <div class="col-md-12 form-group inputbutton submitButton">
+                    <button (click)="goBack()" class="btnStyle btnBackStyle"> Back</button>
+                    <button [ngClass]="{'disableSubmit' : (!form.valid) }"
+                            [disabled]="!form.valid" type="submit" class="btnNext btnStyle">Edit Item
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <div class="col-md-12 row profileForm" *ngIf="this.purchaseTab">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12 row">
+                    <div class="text-spacing col-12 col-lg-12 float-left row">
+                        <div class="col-6 col-lg-4 col-md-4 col-sm-5">
+                            <b>Item Id</b>:
+                        </div>
+                        <div class="col-6 col-lg-8 col-md-8 col-sm-7">
+                           {{this.id}}
+                        </div>
+                    </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12 row">
+                    <div class="text-spacing col-12 col-lg-12 float-left row">
+                        <div class="col-6 col-lg-4 col-md-4 col-sm-5">
+                            <b>Item Name</b>:
+                        </div>
+                        <div  class="text-capitalize col-6 col-lg-8 col-md-8 col-sm-7">
+                           {{this.item.name}}
+                        </div>
+                    </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12 row">
+                    <div class="text-spacing col-12 col-lg-12 float-left row">
+                        <div class="col-6 col-lg-4 col-md-4 col-sm-5">
+                            <b>On hand Quantity</b>:
+                        </div>
+                        <div class="col-6 col-lg-8 col-md-8 col-sm-7">
+                            {{this.quantityAvailable}}
+                        </div>
+                    </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12 row">
+                    <div class="text-spacing col-12 col-lg-12 float-left row">
+                        <div class="col-6 col-lg-4 col-md-4 col-sm-5">
+                            <b>Used Quantity</b>:
+                        </div>
+                        <div class="col-6 col-lg-8 col-md-8 col-sm-7">
+                            {{this.quantityUsed}}
+                        </div>
+                    </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12 row">
+                    <div class="text-spacing col-12 col-lg-12 float-left row">
+                        <div class="col-6 col-lg-4 col-md-4 col-sm-5">
+                            <b>Total Quantity</b>:
+                        </div>
+                        <div class="col-6 col-lg-8 col-md-8 col-sm-7">
+                           {{this.quantityAvailable + this.quantityUsed}}
+                        </div>
+                    </div>
+            </div>
+
+            <div class="text-spacing col-12 col-lg-12">
+                <hr>
+            </div>
+            <div style="padding-right: 0" class="text-spacing col-12 col-lg-12 row">
+                <div  class="col-6 col-lg-6">
+                    <span><h3>Items Available</h3></span>
+                </div>
+                <div style="padding-right: 0" class="col-6 col-lg-6">
+                    <button (click)="addItemQuantityModal.open()" style="width: 200px;" type="button" class="btn btn-primary alignDeleteButton pull-right " ><i class="add-item-icon ion-plus-round"></i> Add Item Quantity </button>
+                </div>
+
+            </div>
+            <div class="text-spacing col-12 col-lg-12">
+                    <div  class="smarttable" type="html">
+                        <ng2-smart-table [settings]="items_available_settings"
+                                         [source]="itemQuantitysource"
+                                         (edit) = "editVendor($event)"
+                                         (custom)="onCustom($event)"
+                                         (delete)= "deleteItemQuantity($event)">
+                        </ng2-smart-table>
+                    </div>
+                <div class="paginationControl">
+                    <div *ngFor='let data of itemQuantityList | paginate : { itemsPerPage: this.perPage, currentPage: currentPage, id : "listItem", totalItems: totalCount }'></div>
+                    <pagination-controls class="pageControl" (pageChange)="getPageData($event)" id="listItem"
+                                         nextLabel="Next">
+                    </pagination-controls>
+                </div>
+            </div>
+            <div class="text-spacing col-12 col-lg-12">
+                <hr>
+            </div>
+            <div style="padding-right: 0" class="text-spacing col-12 col-lg-12 row">
+                <div  class="col-6 col-lg-6">
+                    <span><h3>Items Used</h3></span>
+                </div>
+                <div style="padding-right: 0" class="col-6 col-lg-6">
+                    <button [disabled]="(this.quantityAvailable == 0)" (click)="addUsedItemQuantityModal.open()" style="width: 200px;" type="button" class="btn btn-primary alignDeleteButton pull-right " ><i class="add-item-icon ion-plus-round"></i> Add Item Used </button>
+                </div>
+            </div>
+            <div class="text-spacing col-12 col-lg-12">
+                <div  class="smarttable" type="html">
+                    <ng2-smart-table [settings]="items_used_settings"
+                                     [source]="itemUsedsource"
+                                     (edit) = "editVendor($event)"
+                                     (custom)="onCustom($event)"
+                                     (delete)= "deleteItemUsed($event)">
+                    </ng2-smart-table>
+                    <div class="paginationControl">
+                        <div *ngFor='let data of itemUsedList | paginate : { itemsPerPage: this.perPage, currentPage: currentPageUsed, id : "listItemNew", totalItems: totalCountUsed }'></div>
+                        <pagination-controls class="pageControl" (pageChange)="getPageDataUsed($event)" id="listItemNew"
+                                             nextLabel="Next">
+                        </pagination-controls>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div *ngIf="this.financeTab" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+            <div class="adjustInputs col-lg-5 col-md-5 col-sm-3 col-6">
+                <div>
+                    <label class="labelStyle"> Vendors </label>
+                </div>
+                <div>
+                    <select [(ngModel)]="vendorSelected" (change)="this.selectVendor($event)" class="form-control text-capitalize selectBox">
+                        <option value ="0" disabled selected> Vendors </option>
+                        <option  *ngFor="let vendor of vendorNamesData" value="{{vendor.vendor_id}}">{{vendor.company_name}}</option>
+                    </select>
+                </div>
+                <div class="profileErrorMessage">
+                    <!--<span *ngIf="(!form.get('city').valid && form.get('city').touched) && form.get('city').value != '' "-->
+                    <!--class="help-block sub-little-signUp-error confpass"> Please enter valid City Field </span>-->
+                </div>
+            </div>
+            <div class="adjustInputs col-lg-3 col-md-3 col-sm-3 col-6">
+                <div>
+                    <label class="labelStyle"> Price (₹) </label>
+                </div>
+                <div>
+                    <input placeholder="Price" [textMask]="{mask: numberMask,guide : false}" [(ngModel)]="this.itemPrice" type="text" class="form-control">
+                </div>
+                <div class="profileErrorMessage">
+                    <!--<span *ngIf="(!form.get('city').valid && form.get('city').touched) && form.get('city').value != '' "-->
+                    <!--class="help-block sub-little-signUp-error confpass"> Please enter valid City Field </span>-->
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-12">
+                <!--<button [disabled]="((vendorSelected && itemPrice ) ? false:true)" style="width:100%;margin-top: 24px;" type="button" (click)="addVendorItems()" class="btn btn-primary"> Add </button>-->
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-3 col-12">
+                <button [disabled]="((vendorSelected && itemPrice ) ? false:true)" style="width:100%;margin-top: 24px;" type="button" (click)="addVendorItems()" class="btn btn-primary"> Add </button>
+                <!--<button  style="width:100%;margin-top: 24px;" type="button" (click)="addVendorItems()" class="btn btn-default"> PDF </button>-->
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <hr>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div id="editItemsTable" class="smarttable" type="html">
+                    <ng2-smart-table [settings]="settings"
+                                     [source]="source"
+                                     (edit) = "editVendor($event)"
+                                     (custom)="onCustom($event)"
+                                     (delete)= "deleteItemVendorButton($event)">
+                    </ng2-smart-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="confirmUserActiveContainer">
+    <modal #deleteItemVendorModal>
+        <modal-header>
+            <div class="test"><span class="headerText">Are you sure you want to delete this Item's Vendor?</span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer">
+                <div class="confirmButtons">
+                    <div class="noButton">
+                        <button class="noConfirm" (click)="deleteItemVendorModal.close()">No</button>
+                    </div>
+                    <div class="yesButton">
+                        <button class="yesConfirm" (click)="deleteVendorItems()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </modal-content>
+    </modal>
+</div>
+<div class="confirmUserActiveContainer">
+    <modal #deleteItemQuantityModal>
+        <modal-header>
+            <div class="test"><span class="headerText">Are you sure you want to delete Item Quantity?</span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer">
+                <div class="confirmButtons">
+                    <div class="noButton">
+                        <button class="noConfirm" (click)="deleteItemQuantityModal.close()">No</button>
+                    </div>
+                    <div class="yesButton">
+                        <button class="yesConfirm" (click)="this.onDeleteItemQuantity()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </modal-content>
+    </modal>
+</div>
+<div class="confirmUserActiveContainer">
+    <modal #deleteItemUsedModal>
+        <modal-header>
+            <div class="test"><span class="headerText">Are you sure you want to delete Item Used?</span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer">
+                <div class="confirmButtons">
+                    <div class="noButton">
+                        <button class="noConfirm" (click)="deleteItemUsedModal.close()">No</button>
+                    </div>
+                    <div class="yesButton">
+                        <button class="yesConfirm" (click)="this.onDeleteItemUsed()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </modal-content>
+    </modal>
+</div>
+
+
+<div class="confirmUserActiveContainer">
+    <modal #addItemQuantityModal (onClose)="resetItemQuantity()" [closeOnOutsideClick]="false">
+        <modal-header>
+            <div class="test"><span class="headerText"><b> Add Items Quantity </b></span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer col-md-12 col-lg-12 col-12 col-sm-12">
+                <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                    <div class="col-md-12 col-lg-12 col-12 col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+
+                <div *ngIf="showVendor">
+                    <form [formGroup]="itemQuantityFormVendor" (ngSubmit)="addItemQuantityFinal(itemQuantityFormVendor.value)">
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> Vendor </label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <select formControlName="vendor" class="form-control text-capitalize selectBox">
+                                <option value="" disabled selected> Vendors</option>
+                                <option *ngFor="let vendor of vendorsByItem" value="{{vendor.id_user}}">
+                                    {{vendor.company_name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> Price Per Item </label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <input formControlName="price" placeholder="Price Per Item" type="text"
+                                   class="disabled form-control pull-left"/>
+                            <div class="profileErrorMessage">
+                                <div class="profileErrorMessage">
+                            <span *ngIf="itemQuantityFormVendor.controls['price'].dirty && itemQuantityFormVendor.controls['price'].invalid && itemQuantityFormVendor.get('price').value != ''"
+                                  class="help-block sub-little-signUp-error confpass"> Please Enter Numeric value </span>
+                                    <span *ngIf="itemQuantityFormVendor.controls['price'].dirty && itemQuantityFormVendor.get('price').value == '' "
+                                          class="help-block sub-little-signUp-error confpass">Price Per Item is Required </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> Quantity </label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <input formControlName="quantity" placeholder="Quantity" type="text"
+                                   class="disabled form-control pull-left"/>
+                            <div class="profileErrorMessage">
+                                <div class="profileErrorMessage">
+                            <span *ngIf="itemQuantityFormVendor.controls['quantity'].dirty && itemQuantityFormVendor.controls['quantity'].invalid && itemQuantityFormVendor.get('quantity').value != ''"
+                                  class="help-block sub-little-signUp-error confpass"> Please Enter Numeric value </span>
+                                    <span *ngIf="itemQuantityFormVendor.controls['quantity'].dirty && itemQuantityFormVendor.get('quantity').value == '' "
+                                          class="help-block sub-little-signUp-error confpass">Quantity is Required </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> Date </label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <my-date-picker #datepicker
+                            placeholder="DD/MM/YYYY" formControlName="date"
+                            name="mydate" [options]="myDateCron1PickerOptions" (dateChanged)="onDate2Changed($event)" required>
+                            </my-date-picker>
+                        </div>
+                    </div>
+
+                    <div style="margin: 0; width: 100%" class="col-md-12 col-lg-12 col-12 col-sm-12 confirmButtons">
+                        <div class="noButton">
+                            <button class="noConfirm" (click)="resetItemQuantity()">Cancel</button>
+                        </div>
+                        <div class="yesButton">
+                            <button [ngClass]="{'disableSubmit' : !(itemQuantityFormVendor.valid && !disbaleItemsQuantityButton && this.disableItemDate) }"
+                                    [disabled]="!(itemQuantityFormVendor.valid && !disbaleItemsQuantityButton && this.disableItemDate)"
+                                    type="submit"class="yesConfirm">Add
+                            </button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </modal-content>
+    </modal>
+</div>
+
+<div class="confirmUserActiveContainer">
+    <modal #addUsedItemQuantityModal (onClose)="resetUsedQuantity()" [closeOnOutsideClick]="false">
+        <modal-header>
+            <div class="test"><span class="headerText"><b> Add Used Items Quantity </b></span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer col-md-12 col-lg-12 col-12 col-sm-12">
+
+                <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                    <div class="col-md-12 col-lg-12 col-12 col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+                <div>
+                    <form [formGroup]="itemUsedFormVendor" (ngSubmit)="addItemUsedFinal(itemUsedFormVendor.value)">
+
+                        <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                            <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                                <label> Quantity </label>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                                <input formControlName="quantity" placeholder="Quantity" type="text"
+                                       class="disabled form-control pull-left"/>
+                                <div class="profileErrorMessage">
+                                    <div class="profileErrorMessage">
+                            <span *ngIf="itemUsedFormVendor.controls['quantity'].dirty && itemUsedFormVendor.controls['quantity'].invalid && itemUsedFormVendor.get('quantity').value != ''"
+                                  class="help-block sub-little-signUp-error confpass"> Please Enter Numeric value </span>
+                                        <span *ngIf="itemUsedFormVendor.controls['quantity'].dirty && itemUsedFormVendor.get('quantity').value == '' "
+                                              class="help-block sub-little-signUp-error confpass">Quantity is Required </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                            <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                                <label> Date </label>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                                <my-date-picker #datepicker
+                                                placeholder="DD/MM/YYYY" formControlName="date"
+                                                name="mydate" [options]="myDateCron1PickerOptions" (dateChanged)="onUsedDateChanged($event)"required>
+                                </my-date-picker>
+                            </div>
+                        </div>
+
+                        <div style="margin: 0; width: 100%" class="col-md-12 col-lg-12 col-12 col-sm-12 confirmButtons">
+                            <div class="noButton">
+                                <button class="noConfirm" (click)="resetUsedQuantity()">Cancel</button>
+                            </div>
+                            <div class="yesButton">
+                                <button [ngClass]="{'disableSubmit' : !(itemUsedFormVendor.valid && !disbaleUsedQuantityButton && disableUsedItemDate) }"
+                                        [disabled]="!(itemUsedFormVendor.valid && !disbaleUsedQuantityButton && disableUsedItemDate)"
+                                        type="submit"class="yesConfirm">Add
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </modal-content>
+    </modal>
+</div>

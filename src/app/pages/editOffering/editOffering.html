@@ -1,0 +1,393 @@
+<div class="addOfferingContainer">
+    <div class="addOfferingContent divAlignLeft">
+        <form [formGroup]="offeringForm" (ngSubmit)="onSubmit(offeringForm.value)">
+            <div class="col-md-12 profileForm divAlignLeft">
+                <!--form controls start here-->
+                <div class="col-md-12 divAlignLeft">
+                    <div class="col-md-6 addOfferingInput">
+                        <div>
+                            <label class="labelStyle">Select Issuer&nbsp;<i class="required">*</i></label>
+                            <select  #isIssuer class="form-control selectBox" formControlName="selectIssuer" autofocus>
+                                <option value="" disabled selected>Select One</option>
+                                <option *ngFor="let issuer of issuerData" value="{{issuer.value}}">
+                                    {{issuer.value}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="profileErrorMessage">
+                             <span *ngIf="!offeringForm.get('selectIssuer').valid && offeringForm.get('selectIssuer').touched"
+                                   class="help-block sub-little-signUp-error">Issuer is required.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 addOfferingInput">
+                        <div>
+                            <label class="labelStyle">Issue Name&nbsp;<i class="required">*</i></label>
+                            <input formControlName="issueName" type="text" class="form-control" maxlength="60"
+                                   id="issueName" pattern="([a-zA-Z ]+\s?)*$" #issueName
+                                   (blur)="issueName.value = trimContent(issueName.value, 'issueName')"
+                                   maxlength="30" autofocus onkeypress="if(event.charCode < 65 || (event.charCode > 90 && event.charCode < 97) || event.charCode >122){
+                                             if(event.charCode == 32) {
+                                               return true
+                                             } else {
+                                              return false;
+                                             }
+                                           }">
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!offeringForm.get('issueName').valid && offeringForm.get('issueName').touched"
+                                  class="help-block sub-little-signUp-error">Issue name is required.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 divAlignLeft">
+                    <div class="col-md-6 addOfferingInput">
+                        <div>
+                            <label class="labelStyle">Type of Offering&nbsp;<i class="required">*</i></label>
+                            <select class="form-control selectBox" formControlName="typeOfOffering">
+                                <option value="" disabled selected>Select One</option>
+                                <option *ngFor="let type of typeOfOfferings" value="{{type.value}}">
+                                    {{type.value}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!offeringForm.get('typeOfOffering').valid && offeringForm.get('typeOfOffering').touched"
+                                  class="help-block sub-little-signUp-error">Type of offerings is required and must be valid.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 addOfferingInput">
+                        <div>
+                            <label class="labelStyle">Type&nbsp;<i class="required">*</i></label>
+                            <select class="form-control selectBox" formControlName="investmentType">
+                                <option *ngFor="let investmentType of investmentTypeList "
+                                        value="{{investmentType.value}}">
+                                    {{investmentType.value}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!offeringForm.get('investmentType').valid && offeringForm.get('investmentType').touched"
+                                  class="help-block sub-little-signUp-error">
+                                Type field is required.
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-12 divAlignLeft">
+                    <div class="col-md-6 addOfferingInput">
+                        <div>
+                            <label class="labelStyle">Issue Type&nbsp;<i class="required">*</i></label>
+                            <select class="form-control selectBox" formControlName="issueType">
+                                <option *ngFor="let issueType of issueTypeList " value="{{issueType.value}}">
+                                    {{issueType.value}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!offeringForm.get('issueType').valid && offeringForm.get('issueType').touched"
+                                  class="help-block sub-little-signUp-error">
+                                Issue type is required.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 addOfferingInput">
+                        <div>
+                            <label class="labelStyle">Deal Type&nbsp;<i class="required">*</i></label>
+                            <select class="form-control selectBox" formControlName="dealType">
+                                <option *ngFor="let dealType of dealTypeList " value="{{dealType.value}}">
+                                    {{dealType.value}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!offeringForm.get('dealType').valid && offeringForm.get('dealType').touched"
+                                  class="help-block sub-little-signUp-error">
+                                Deal type is required.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 divAlignLeft">
+                    <div class="col-md-4 divAlignLeft addOfferingInput">
+                        <div>
+                            <label class="labelStyle">Percentage Raised %</label>
+                            <input formControlName="percentageRaised" type="text" class="form-control"
+                                   onkeypress="if(event.charCode > 31 && (event.charCode < 48 || event.charCode > 57)){
+                                return false;
+                                }" maxlength="9">
+
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!offeringForm.get('percentageRaised').valid && offeringForm.get('percentageRaised').touched"
+                                  class="help-block sub-little-signUp-error confpass">Percentage Raise is required.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 addOfferingInput ">
+                        <div>
+                            <label class="labelStyle">Offering Amount&nbsp;<i class="required">*</i></label>
+                            <input formControlName="offeringAmount" type="text" class="form-control"
+                                   onkeypress="if(event.charCode > 31 && (event.charCode < 48 || event.charCode > 57)){
+                                return false;
+                                }" maxlength="9">
+                        </div>
+                        <div class="profileErrorMessage">
+                        <span *ngIf="!offeringForm.get('offeringAmount').valid && offeringForm.get('offeringAmount').touched"
+                              class="help-block sub-little-signUp-error confpass">Offering Amount is required.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 divAlignLeft addOfferingInput">
+                        <div>
+                            <label class="labelStyle">Minimum Offering Amount&nbsp;<i class="required">*</i></label>
+                            <input formControlName="minimumOfferingAmount" type="text" class="form-control"
+                                   onkeypress="if(event.charCode > 31 && (event.charCode < 48 || event.charCode > 57)){
+                                return false;
+                                }" maxlength="9">
+                        </div>
+                        <div class="profileErrorMessage">
+                        <span *ngIf="!offeringForm.get('minimumOfferingAmount').valid && offeringForm.get('minimumOfferingAmount').touched"
+                              class="help-block sub-little-signUp-error confpass">Minimum offering amount is required.</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 divAlignLeft">
+                    <div class="col-md-12 addOfferingInput">
+                        <div>
+
+                            <label class="labelStyle radioLabelHead">Input Type:&nbsp;<i class="required">*</i> </label>
+                            <span class="radioSpan">
+                                <span class="radioMobile">
+                                    <input type="radio" class="radioButtonInput"
+                                           formControlName="inputType" name="inputType"
+                                           id="inputTypeDollar" value="Dollar Amount"/>
+                                     <label for="inputTypeDollar" class="labelStyle radioLabel">Dollar Amount</label>
+                                </span>
+
+                                <span class="radioMobile radioLeft">
+                                    <input type="radio"  class="radioButtonInput"
+                                           formControlName="inputType" name="inputType"
+                                           id="inputTypeShare" value="Shares"/>
+                                    <label for="inputTypeShare" class="labelStyle radioLabel">Shares</label>
+                                </span>
+                            </span>
+
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!offeringForm.get('inputType').valid && offeringForm.get('inputType').touched"
+                                  class="help-block sub-little-signUp-error">
+                                Input type is required.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 divAlignLeft">
+                    <div class="col-md-4 divAlignLeft addOfferingInput">
+                        <div>
+                            <label class="labelStyle">Max Amount&nbsp;<i class="required">*</i></label>
+                            <input formControlName="maxAmount" type="text" class="form-control"
+                                   onkeypress="if(event.charCode > 31 && (event.charCode < 48 || event.charCode > 57)){
+                                return false;
+                                }" maxlength="9">
+
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!offeringForm.get('maxAmount').valid && offeringForm.get('maxAmount').touched"
+                                  class="help-block sub-little-signUp-error confpass">Max Amount is required.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4  divAlignLeft addOfferingInput">
+                        <div>
+                            <label class="labelStyle">Unit Price&nbsp;<i class="required">*</i></label>
+                            <input formControlName="unitPrice" type="text" class="form-control"
+                                   onkeypress="if(event.charCode > 31 && (event.charCode < 48 || event.charCode > 57)){
+                                return false;
+                                }" maxlength="9">
+                        </div>
+                        <div class="profileErrorMessage">
+                        <span *ngIf="!offeringForm.get('unitPrice').valid && offeringForm.get('unitPrice').touched"
+                              class="help-block sub-little-signUp-error confpass">Unit Price is required.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 divAlignLeft addOfferingInput">
+                        <div>
+                            <label class="labelStyle">Minimum Subscription Amount&nbsp;<i class="required">*</i></label>
+                            <input formControlName="minimumSubcriptionAmount" type="text" class="form-control"  onkeypress="if(event.charCode > 31 && (event.charCode < 48 || event.charCode > 57)){
+                                return false;
+                                }" maxlength="9">
+                        </div>
+                        <div class="profileErrorMessage">
+                        <span *ngIf="!offeringForm.get('minimumSubcriptionAmount').valid && offeringForm.get('minimumSubcriptionAmount').touched"
+                              class="help-block sub-little-signUp-error confpass">field can't remain empty..</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 divAlignLeft">
+                    <div class="col-md-4 divAlignLeft addOfferingInput">
+                        <div>
+                            <label class="labelStyle">Start Date&nbsp;<i class="required">*</i></label>
+                            <span class="Quotedatepicker">
+                                       <my-date-picker formControlName="startDate" [selDate]="fromDate" #datepicker
+                                                       placeholder="MM/DD/YYYY" secondaryPlaceholder="MM/DD/YYYY"
+                                                       name="mydate" [options]="myDatePickerOptions" (dateChanged)="onStartDateChanged($event)"required>
+                                       </my-date-picker>
+                            </span>
+
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!offeringForm.get('startDate').valid && offeringForm.get('startDate').touched"
+                                  class="help-block sub-little-signUp-error confpass">Start date is required.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 addOfferingInput divAlignLeft">
+                        <div>
+                            <label class="labelStyle">End Date&nbsp;<i class="required">*</i></label>
+                            <span class="Quotedatepicker">
+                                       <my-date-picker formControlName="endDate" [selDate]="toDate" #datepicker
+                                                       placeholder="MM/DD/YYYY" secondaryPlaceholder="MM/DD/YYYY"
+                                                       name="mydate" [options]="myDatePickerOptions"
+                                                       (dateChanged)="onDateChanged($event)" required>
+                                       </my-date-picker>
+                            </span>
+                        </div>
+                        <div *ngIf="dateError" class="profileErrorMessage">
+                        <span class="help-block sub-little-signUp-error confpass">End date can't be less than start date.</span>
+                        </div>
+                        <div class="profileErrorMessage">
+                        <span *ngIf="!offeringForm.get('endDate').valid && offeringForm.get('endDate').touched"
+                              class="help-block sub-little-signUp-error confpass">End date is required.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 addOfferingInput divAlignLeft">
+                        <div>
+                            <label class="labelStyle">Number of Units&nbsp;<i class="required">*</i></label>
+                            <input formControlName="numberOfUnits" type="text" class="form-control"  onkeypress="if(event.charCode > 31 && (event.charCode < 48 || event.charCode > 57)){
+                                return false;
+                                }" maxlength="9">
+                        </div>
+                        <div class="profileErrorMessage">
+                        <span *ngIf="!offeringForm.get('numberOfUnits').valid && offeringForm.get('numberOfUnits').touched"
+                              class="help-block sub-little-signUp-error confpass">Number Of Units is required.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 divAlignLeft">
+                    <div class="col-md-6 addOfferingInput">
+                        <div>
+
+                            <label class="labelStyle radioLabelHead">Preview On Homepage? </label>
+
+                           <span class="radioSpan">
+                               <span class="radioMobile">
+                                  <input type="radio" class="radioButtonInput"
+                                         formControlName="previewHomepage" name="previewHomepage"
+                                         id="previewYes" value="yes"/>
+                                   <label for="previewYes" class="labelStyle radioLabel">Yes</label>
+                               </span>
+                               <span class="radioMobile radioLeft">
+                                   <input type="radio" class="radioButtonInput"
+                                          formControlName="previewHomepage" name="previewHomepage"
+                                          id="previewNo" value="no"/>
+                                    <label for="previewNo" class="labelStyle radioLabel">No</label>
+                               </span>
+                           </span>
+
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!offeringForm.get('previewHomepage').valid && offeringForm.get('previewHomepage').touched"
+                                  class="help-block sub-little-signUp-error">
+                                Input type is required.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 addOfferingInput">
+                        <div>
+                            <label class="labelStyle radioLabelHead">Display in Marketplace? </label>
+                            <span class="radioSpan">
+                                <span class="radioMobile">
+                                    <input type="radio" class="radioButtonInput"
+                                   formControlName="displayMarketplace" name="displayMarketplace"
+                                   id="displayYes" value="yes"/>
+                                    <label for="displayYes" class="labelStyle radioLabel">Yes</label>
+                                </span>
+                               <span class="radioMobile radioLeft">
+                                   <input type="radio" class="radioButtonInput"
+                                   formControlName="displayMarketplace" name="displayMarketplace"
+                                   id="displayNo" value="no"/>
+                                    <label for="displayNo" class="labelStyle radioLabel">No</label>
+                               </span>
+                            </span>
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!offeringForm.get('displayMarketplace').valid && offeringForm.get('displayMarketplace').touched"
+                                  class="help-block sub-little-signUp-error">
+                                Input type is required.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 divAlignLeft">
+                    <div class="col-md-12 addOfferingInput">
+                        <div>
+                            <label class="labelStyle">Offering text&nbsp;<i class="required">*</i></label>
+                            <!--<ckeditor formControlName="offeringText" [(ngModel)]="content"-->
+                                      <!--class="form-control ckEditor"></ckeditor>-->
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!offeringForm.get('offeringText').valid && offeringForm.get('offeringText').touched"
+                                  class="help-block sub-little-signUp-error">
+                                Offering text is required.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 divAlignLeft">
+                    <div class="col-md-12 addOfferingInput">
+                        <div>
+                            <label class="labelStyle">Stamping text&nbsp;<i class="required">*</i></label>
+                            <input formControlName="stampingText" type="text" class="form-control" maxlength="60"
+                                   id="stampingText" pattern="([a-zA-Z ]+\s?)*$" #stampingText
+                                   (blur)="stampingText.value = trimContent(stampingText.value, 'stampingText')"
+                                   maxlength="30" autofocus onkeypress="if(event.charCode < 65 || (event.charCode > 90 && event.charCode < 97) || event.charCode >122){
+                                             if(event.charCode == 32) {
+                                               return true
+                                             } else {
+                                              return false;
+                                             }
+                                           }">
+                        </div>
+                        <div class="profileErrorMessage">
+                            <span *ngIf="!offeringForm.get('stampingText').valid && offeringForm.get('stampingText').touched"
+                                  class="help-block sub-little-signUp-error">
+                                Stamping text is required.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 form-group inputbutton submitButton divAlignLeft">
+                    <button [ngClass]="{'disableSubmit' : (!offeringForm.valid || submitted) }"
+                            [disabled]="!offeringForm.valid || submitted" type="submit" class="btnStyle">EDIT OFFERING
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

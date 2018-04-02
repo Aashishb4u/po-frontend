@@ -1,0 +1,344 @@
+@import "../../../styles";
+@import "../../theme/sass/_auth";
+
+$color-base: rgba(68, 138, 175, 1);
+
+
+@mixin transition ($prop: all, $time: 1s, $ease: linear) {
+  -webkit-transition: $prop $time $ease;
+  -moz-transition: $prop $time $ease;
+  -o-transition: $prop $time $ease;
+  -ms-transition: $prop $time $ease;
+  transition: $prop $time $ease;
+}
+
+
+.browseOfferingTabs {
+  padding-top: 110px;
+  //Profile Tab CSS
+  .panel {
+    .panel-body {
+      .wizard {
+        min-width: 95%;
+        float: left;
+        background: #fff;
+        margin: 0 2.5%;
+        border: 1px solid $border-universal-color;
+        .offeringTab {
+          width: 33.33%;
+          float: left;
+          text-align: center;
+          border-right: 1px solid $border-universal-color;
+          height: 50px;
+          line-height: 50px;
+          cursor: pointer;
+          font-size: 12px;
+          &:last-child {
+            border-right: none;
+          }
+          a {
+            text-transform: uppercase;
+            .profileIcon {
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+      .currentTab {
+        font-size: 14px !important;
+        border-bottom: 3px solid $btn-color;
+        color: $btn-color;
+      }
+      .disableTab {
+        cursor: not-allowed !important;
+      }
+    }
+  }
+}
+
+.offeringContainer {
+  margin: 115px 2.5% 50px 2.5%;
+  //padding: 15px;
+  background: white;
+  overflow-y: auto;
+  min-width: 95%;
+  border-radius: $border-radius;
+  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+  .specificOfferingContent {
+    display: block;
+    .carouselOuter{
+      padding: 15px;
+      .carouselContainer {
+        border: 1px solid lightgrey;
+        padding: 10px;
+        float:left;
+      }
+      .offeringContent {
+        padding: 0;
+        float: left;
+        .contentContainer {
+          .contentUpperContainer {
+            width: 95%;
+            margin-left: 5%;
+            border: 1px solid $border-universal-color;
+            text-align: center;
+            float: left;
+            .socialIcons {
+              border-bottom: 1px solid $border-universal-color;
+              float: left;
+              width: 100%;
+              .socialIconContainer {
+                float: left;
+                width: 100%;
+                padding: 3%;
+                display: flex;
+                justify-content: space-around;
+                flex: auto;
+                .social-icons {
+                  text-align: center;
+                  float: left;
+                  font-family: "Open Sans";
+                  font-weight: 300;
+                  font-size: 1.5em;
+                  color: $color-base;
+                  h1 {
+                    margin: 40px 0;
+                  }
+                  ul {
+                    float: left;
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    .iconListStyle {
+                      display: inline-block;
+                      float: left;
+                    }
+                    li {
+                      vertical-align:  middle;
+                      a {
+                        display: block;
+                        font-size: 1.4em;
+                        margin: 0 5px;
+                        text-decoration: none;
+                        i {
+                          color: $color-base;
+                          @include transition(all, 0.2s, ease-in);
+                        }
+                        &:hover {
+                          i {
+                            color: darken($color-base, 20%);
+                          }
+                        }
+                        &:focus {
+                          i {
+                            transition: none;
+                            color: darken($color-base, 40%);
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            .offeringFund {
+              padding: 3%;
+              border-bottom: 1px solid $border-universal-color;
+              float: left;
+              width: 100%;
+              .raisedFund {
+                display: block;
+                line-height: 1.6em;
+              }
+              .totalGoal {
+                font-size: 17px;
+                font-weight: bold;
+                color: $btn-color;
+              }
+              .raisedTotal {
+                font-size: 11px;
+                letter-spacing: 0.5px;
+              }
+            }
+            .offeringTerm {
+              padding: 3%;
+              border-bottom: 1px solid $border-universal-color;
+              float: left;
+              width: 100%;
+              .offeringTermDiv {
+                display: inline-block;
+                width: 30.33%;
+              }
+            }
+            .progressBarContainerDiv {
+              padding: 3%;
+              border-bottom: 1px solid $border-universal-color;
+              float: left;
+              width: 100%;
+              .progressBarDiv {
+                padding: 0;
+                border-radius: 10px;
+                background-color: #f1f3f6;
+                div.progress-bar {
+                  background-color: #59a453;
+                  color: #ffffff;
+                  font-weight: 700;
+                }
+              }
+            }
+            .offeringInfo {
+              padding: 0 2%;
+              width: 100%;
+              float: left;
+              border-bottom: 1px solid $border-universal-color;
+              .offeringInfoDiv {
+                display: inline-block;
+                float: left;
+                width:33.33%;
+                border-right: 1px solid $border-universal-color;
+                &:last-child {
+                  border-right: none;
+                }
+                .offeringInfoText {
+                  padding:5%;
+                  .offeringLabelData {
+                    display: block;
+                    font-size: 13px;
+                    line-height: 1.6em;
+                    color: #000;
+                    text-transform: capitalize;
+                  }
+
+                  .offeringLabel {
+                    display: block;;
+                    line-height: 1.6em;
+                    color: $primary;
+                    font-size: 11px;
+                    font-weight: 600;
+                    letter-spacing: 0.08px;
+                  }
+                }
+              }
+            }
+            .investButton {
+              padding: 5%;
+              float: left;
+              width: 100%;
+              .readyToInvestButton {
+                height: 45px;
+              }
+            }
+          }
+          .contentLowerContainer {
+            margin-top: 15px;
+            float: left;
+            margin-left: 5%;
+            text-align: center;
+            width: 95%;
+            border: 1px solid $border-universal-color;
+            .questionContainer {
+              padding: 5%;
+              .askQuestion {
+                padding: 5%;
+                border: 1px solid $btn-color;
+                color: $primary;
+                letter-spacing: 0.5px;
+                font-weight: 700;
+              }
+            }
+            .contact {
+              padding: 3%;
+              border-top: 1px solid $border-universal-color;
+              .contactIcon {
+                margin-left: 10px;
+                font-size: 20px;
+              }
+              .contactNumber {
+                font-size: 19px;
+              }
+            }
+
+          }
+        }
+      }
+    }
+  }
+  .browseOfferingContent {
+    .updateViewContent {
+      padding: 0;
+      float: left;
+      border: 1px solid $border-universal-color;
+      .updateTitle {
+        padding: 20px;
+        background-color: $body-bg;
+        .titleBody {
+          font-size: 17px;
+          font-weight: 600;
+        }
+      }
+      .updateContent {
+        padding: 20px;
+      }
+
+    }
+
+  }
+}
+
+:host /deep/{
+  .ngx-gallery-image-wrapper {
+    z-index: 0;
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+
+  .offeringContainer {
+    .specificOfferingContent {
+      .carouselOuter{
+        .offeringContent {
+          .contentContainer {
+            width: 100%;
+            .contentUpperContainer {
+              width: 100%;
+              margin-left: 0;
+              margin-top: 20px;
+              .offeringInfo {
+                .offeringInfoDiv {
+                  width:30.33%;
+                  .offeringInfoText {
+                    padding:3%;
+                  }
+                }
+              }
+            }
+            .contentLowerContainer {
+              width: 100%;
+              margin-left: 0;
+              margin-top: 20px;
+              .questionContainer {
+                padding: 5%;
+                .askQuestion {
+                  padding: 5%;
+                  border: 1px solid $btn-color;
+                  color: $primary;
+                  letter-spacing: 0.5px;
+                  font-weight: 700;
+                }
+              }
+              .contact {
+                padding: 5%;
+                border-top: 1px solid $border-universal-color;
+              }
+
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+

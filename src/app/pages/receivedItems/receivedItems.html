@@ -1,0 +1,300 @@
+<div class="profileContainer">
+
+    <div class="profileContent " *ngIf="settingComponent">
+        <div>
+            <button style="margin-left:1%;margin-bottom: 10px" (click)="this.addItemReceivedModal.open()" type="button" class="btn btn-primary alignDeleteButton pull-right " ><i class="add-item-icon ion-plus-round"></i> Add Items Received </button>
+        </div>
+        <div id="viewItems" class="smarttable" type="html">
+            <ng2-smart-table [settings]="settings"
+                             [source]="source"
+                             (edit) = "editItemReceivedDetails($event)"
+                             (delete)= "deleteItemReceived($event)">
+            </ng2-smart-table>
+        </div>
+        <div class="paginationControl">
+            <div *ngFor='let data of itemList | paginate : { itemsPerPage: this.perPage, currentPage: current_page, id : "listItem", totalItems: totalCount }'></div>
+            <pagination-controls class="pageControl" (pageChange)="getPageData($event)" id="listItem"
+                                 nextLabel="Next">
+            </pagination-controls>
+        </div>
+    </div>
+</div>
+
+<div class="confirmUserActiveContainer">
+    <modal #deleteVendorModal [closeOnOutsideClick]="false">
+        <modal-header>
+            <div class="test"><span class="headerText">Are you sure you want to delete Item Received?</span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer">
+                <div class="confirmButtons">
+                    <div class="noButton">
+                        <button class="noConfirm" (click)="deleteVendorModal.close()">No</button>
+                    </div>
+                    <div class="yesButton">
+                        <button class="yesConfirm" (click)="deleteItemReceivedFinal()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </modal-content>
+    </modal>
+</div>
+
+<div class="confirmUserActiveContainer">
+    <modal #addPaymentModal [closeOnOutsideClick]="false">
+        <modal-header>
+            <div class="test"><span class="headerText"><b> Add Payment Details </b></span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer col-md-12 col-lg-12 col-12 col-sm-12">
+                <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                    <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                        <label> PO Number </label>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                        <input disabled placeholder="PO Number" [(ngModel)]="this.purchaseId" type="text" class="disabled form-control pull-left"/>
+                    </div>
+                </div>
+
+                <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                    <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                        <label> Date </label>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                        <my-date-picker [selDate]="this.date" #datepicker
+                                        placeholder="DD/MM/YYYY"
+                                        name="mydate" [options]="myDateCron1PickerOptions" (dateChanged)="onDate1Changed($event)"required>
+                        </my-date-picker>
+                        <!--<input placeholder="Search Items" style="width: 200px;" [(ngModel)]="this.searchvalue" (ngModelChange)="changedItem($event)" type="text" class="disabled form-control pull-left"/>-->
+                    </div>
+                </div>
+
+                <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                    <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                        <label> Payment Amount (₹) </label>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                        <input [(ngModel)]="paymentAmount" [textMask]="{mask: numberMask,guide : false}" placeholder="Payment Amount" type="text" class="disabled form-control pull-left"/>
+                    </div>
+                </div>
+
+                <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                    <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                        <label> Payment Mode </label>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                        <select (change)="getPayMode($event)" style="width: 100%;" class="form-control selectBox">
+                            <option value="" disabled selected>Payment Mode</option>
+                            <option value="3"> Cash </option>
+                            <option value="1"> Cheque</option>
+                            <option value="2"> Online Transfer</option>
+                        </select>
+                        <!--<input placeholder="Search Items" style="width: 200px;" [(ngModel)]="this.searchvalue" (ngModelChange)="changedItem($event)" type="text" class="disabled form-control pull-left"/>-->
+                    </div>
+                </div>
+                <div style="margin: 0; width: 100%" class="col-md-12 col-lg-12 col-12 col-sm-12 confirmButtons">
+                    <div class="noButton">
+                        <button class="noConfirm" (click)="addPaymentModal.close()">Cancel</button>
+                    </div>
+                    <div class="yesButton">
+                        <button [ngClass]="{'disableSubmit' : !(showMeButton && this.paymentAmount && (date >= dateNew) && this.payMode && (paymentAmount <= amountRemaining)) }" [disabled]="!(showMeButton && this.paymentAmount && this.payMode && (date >= dateNew) && (paymentAmount <= amountRemaining))" class="yesConfirm" (click)="addPaymentFinal()">Add</button>
+                    </div>
+                </div>
+            </div>
+        </modal-content>
+    </modal>
+</div>
+
+<div class="confirmUserActiveContainer">
+    <modal #addItemReceivedModal (onClose)="closeAddModal()" [closeOnOutsideClick]="false">
+        <modal-header>
+            <div class="test"><span class="headerText"><b> Add Item Received </b></span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer col-md-12 col-lg-12 col-12 col-sm-12">
+
+                <form [formGroup]="additemReceivedForm" (ngSubmit)="addItemReceivedFinal(additemReceivedForm.value)">
+
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> PO Number </label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <input disabled formControlName="poNumber" placeholder="PO Number" type="text"
+                                   class="disabled form-control pull-left"/>
+                        </div>
+                    </div>
+
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> Item Name </label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <select (change)="onPurchaseItemChange($event)" formControlName="item" class="form-control text-capitalize selectBox">
+                                <option  value="" disabled selected> Items</option>
+                                <option *ngFor="let item of purchaseItems" value="{{item.id_item}}">
+                                    {{item.item_name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> Date </label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <my-date-picker  #datepicker
+                                            placeholder="DD/MM/YYYY" formControlName="date"
+                                            name="mydate" [options]="myDateCron1PickerOptions" (dateChanged)="onUsedDateChanged($event)"required>
+                            </my-date-picker>
+                        </div>
+                    </div>
+
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> Price </label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <input disabled [textMask]="{mask: numberMask,guide : false}" formControlName="price" placeholder="Price" type="text"
+                                   class="disabled form-control pull-left"/>
+                        </div>
+                    </div>
+
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> Quantity Purchased</label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <input disabled [textMask]="{mask: numberMask,guide : false}" formControlName="quantity_purchased" placeholder="Quantity Purchased" type="text"
+                                   class="disabled form-control pull-left"/>
+                        </div>
+                    </div>
+
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> Quantity Received</label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <input formControlName="quantity_received" placeholder="Quantity Received" type="text"
+                                   class="disabled form-control pull-left"/>
+                            <div class="profileErrorMessage">
+                                <div class="profileErrorMessage">
+                            <span *ngIf="additemReceivedForm.controls['quantity_received'].dirty && additemReceivedForm.controls['quantity_received'].invalid && additemReceivedForm.get('quantity_received').value != ''"
+                                  class="help-block sub-little-signUp-error confpass"> Please Enter Numeric value </span>
+                                    <span *ngIf="additemReceivedForm.controls['quantity_received'].dirty && additemReceivedForm.get('quantity_received').value == '' "
+                                          class="help-block sub-little-signUp-error confpass">Quantity Received is Required </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 0; width: 100%" class="col-md-12 col-lg-12 col-12 col-sm-12 confirmButtons">
+                        <div class="noButton">
+                            <button class="noConfirm" (click)="closeAddModal()">Cancel</button>
+                        </div>
+                        <div class="yesButton">
+                            <button [ngClass]="{'disableSubmit' : !(additemReceivedForm.valid && !disableButton) }"
+                                    [disabled]="!(additemReceivedForm.valid && !disableButton)"
+                                    type="submit"class="yesConfirm">Add
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </modal-content>
+    </modal>
+</div>
+
+<div class="confirmUserActiveContainer">
+    <modal #editItemReceivedModal [closeOnOutsideClick]="false">
+        <modal-header>
+            <div class="test"><span class="headerText"><b> Edit Item Received </b></span></div>
+        </modal-header>
+        <modal-content>
+            <div class="confirmButtonsContainer col-md-12 col-lg-12 col-12 col-sm-12">
+
+                <form [formGroup]="edititemReceivedForm" (ngSubmit)="editItemReceivedFinal(edititemReceivedForm.value)">
+
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> PO Number </label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <input disabled formControlName="poNumber" placeholder="PO Number" type="text"
+                                   class="disabled form-control pull-left"/>
+                        </div>
+                    </div>
+
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> Item Name </label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <select disabled (change)="onEditPurchaseItemChange($event)" formControlName="item" class="form-control text-capitalize selectBox">
+                                <option  value="" disabled selected> Items</option>
+                                <option *ngFor="let item of purchaseItems" value="{{item.id_item}}">
+                                    {{item.item_name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> Date </label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <my-date-picker #datepicker
+                                            placeholder="DD/MM/YYYY" formControlName="date"
+                                            name="mydate" [options]="myDateCron1PickerOptions" (dateChanged)="onEditItemsReceivedDateChanged($event)"required>
+                            </my-date-picker>
+                        </div>
+                    </div>
+
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> Price </label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <input disabled [textMask]="{mask: numberMask,guide : false}" formControlName="price" placeholder="Price" type="text"
+                                   class="disabled form-control pull-left"/>
+                        </div>
+                    </div>
+
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> Quantity Purchased</label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <input disabled [textMask]="{mask: numberMask,guide : false}" formControlName="quantity_purchased" placeholder="Quantity Purchased" type="text"
+                                   class="disabled form-control pull-left"/>
+                        </div>
+                    </div>
+
+                    <div class="modal-body-data col-md-12 col-lg-12 col-12 col-sm-12 row">
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <label> Quantity Received</label>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-6 col-sm-6">
+                            <input [textMask]="{mask: numberMask,guide : false}" formControlName="quantity_received" placeholder="Quantity Received" type="text"
+                                   class="disabled form-control pull-left"/>
+                        </div>
+                    </div>
+
+                    <div style="margin: 0; width: 100%" class="col-md-12 col-lg-12 col-12 col-sm-12 confirmButtons">
+                        <div class="noButton">
+                            <button class="noConfirm" (click)="closeEditModal()">Cancel</button>
+                        </div>
+                        <div class="yesButton">
+                            <button [ngClass]="{'disableSubmit' : !(edititemReceivedForm.valid && (date >= dateEdit)) }"
+                                    [disabled]="!(edititemReceivedForm.valid && (date >= dateEdit))"
+                                    type="submit"class="yesConfirm">Add
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </modal-content>
+    </modal>
+</div>

@@ -1,0 +1,126 @@
+<div class="offerings-main-campaign">
+    <div class="offerings-panel">
+        <div class="offerings-panel-body">
+            <div class="offerings-wizard">
+                <div class="offeringsTab" [ngClass]="{'currentTab' : viewAllComponent}" id="view-all"
+                     (click)="changeTab('view-all')">
+                    <a>
+                        <span class="tabText">VIEW ALL</span>
+                    </a>
+                </div>
+                <div class="offeringsTab" [ngClass]="{'currentTab' : draftComponent}" id="draft"
+                     (click)="changeTab('draft')">
+                    <a>
+                        <span class="tabText">DRAFT</span>
+                    </a>
+                </div>
+                <div class="offeringsTab disableTab" [ngClass]="{'currentTab' : activeComponent}" id="active"
+                     (click)="changeTab('active')">
+                    <a>
+                        <span class="tabText">ACTIVE</span>
+                    </a>
+                </div>
+                <div class="offeringsTab disableTab" [ngClass]="{'currentTab' : completedComponent}" id="completed"
+                     (click)="changeTab('completed')">
+                    <a>
+                        <span class="tabText">COMPLETED</span>
+                    </a>
+                </div>
+                <div class="offeringsTab disableTab" [ngClass]="{'currentTab' : failedComponent}" id="failed"
+                     (click)="changeTab('failed')">
+                    <a>
+                        <span class="tabText">FAILED</span>
+                    </a>
+                </div>
+            </div>
+            <div class="offeringsTab disableTab totalDiv" id="total" (click)="changeTab('failed')">
+                <a>
+                    <span class="tabText"><b>TOTAL</b></span>
+                    <span class="totalText">$22,000 offerings</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Offerings Container-->
+<div class="offeringsGridParentContainer">
+    <div class="actionContainer">
+        <div class="actionContainerDiv">
+            <div class="searchButtonDiv">
+                <div class="searchButton">
+                    <span class="input-group-addon searchLogo"> <!--[(ngModel)]="searchBox" (click)="searchOfferings(searchBox)"-->
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </span>
+                    <input class="searchInputButton" [(ngModel)]="searchBox" (keyup.enter)="searchOfferings(searchBox)"
+                           placeholder="Search"/>
+                </div>
+            </div>
+            <div class="addOfferButtonDiv">
+                <button class="addButton" (click)="navigateToAddOffering()"><i class="fa fa-plus"></i>&nbsp;Add Offering
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="offeringsContainer">
+        <div class="offeringsContent divAlignLeft">
+            <div class="col-md-12 col-xs-12 divAlignLeft offeringsContainerHead">
+                <div class="col-md-3 col-xs-3 divAlignLeft typeDiv">
+                    <span class="headText">TYPE/LOCATION</span>
+                </div>
+                <div class="col-md-2 col-xs-2 divAlignLeft launchedDiv">
+                    <span class="headText">LAUNCHED</span>
+                </div>
+                <div class="col-md-2 col-xs-2 divAlignLeft goalDiv">
+                    <span class="headText">GOAL</span>
+                </div>
+                <div class="col-md-4 col-xs-4 divAlignLeft projectOwnerDiv">
+                    <span class="headText">PROJECT OWNER</span>
+                </div>
+                <div class="col-md-1 col-xs-1 divAlignLeft actionDiv">
+                    <span class="tabText">ACTIONS</span>
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-12 divAlignLeft activeHeadDiv">
+                <span class="">{{isSelectedValue | capitalize}}</span>
+            </div>
+            <div class="offeringsGridDataContainer">
+                <div *ngFor="let offeringValue of offeringsList;">
+                    <div class="offerDiv">
+                        <div class="col-md-12 col-xs-12 offerDivFirst">
+                            <div class="col-md-7 col-xs-7 typeDiv">
+                                <span>{{offeringValue.type? offeringValue.type : ''}}</span>
+                            </div>
+                            <div class="col-md-5 col-xs-5 divAlignLeft progress progressBarDiv">
+                                <div class="progress-bar" [style.width.%]='offeringValue.progress ? offeringValue.progress: 0 '
+                                     role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                    <span>${{offeringValue.progressDollarValue? offeringValue.progressDollarValue : ''}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-xs-12 offerDivSecond">
+                            <div class="col-md-3 col-xs-3 divAlignLeft textWrap locationDiv"><b>{{offeringValue.location? offeringValue.location : ''}}</b>
+                            </div>
+                            <div class="col-md-2 col-xs-2 divAlignLeft launchedDiv">{{offeringValue.launched? offeringValue.launched : ''}}</div>
+                            <div class="col-md-2 col-xs-2 divAlignLeft goalDiv"><b>{{offeringValue.goal? offeringValue.goal : ''}}</b></div>
+                            <div class="col-md-4 col-xs-4 divAlignLeft projectOwner">{{offeringValue.projectOwner? offeringValue.projectOwner : ''}}</div>
+                            <div class="col-md-1 col-xs-1 divAlignLeft actionDiv"></div>
+                        </div>
+                        <div class="offerDivThird">
+                            <div class="divAlignRight buttonDiv" (click)="navigateToEditSpecificOffering(offeringValue)">
+                                <button class="editButton" >EDIT</button>
+                            </div>
+                            <div class="divAlignRight buttonDiv">
+                                <button class="addButton">ADD</button>
+                            </div>
+                            <div class="divAlignRight buttonDiv">
+                                <button class="investorButton">INVESTOR LIST</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

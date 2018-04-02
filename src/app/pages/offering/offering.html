@@ -1,0 +1,158 @@
+<div class="browseOfferingTabs">
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <div class="wizard">
+                <div class="offeringTab" [ngClass]="{'currentTab' : overviewPage}" id="overview"
+                     (click)="changeTab('overview')"><a><span
+                        class="tabText">Overview</span></a>
+                </div>
+
+                <div class="offeringTab" [ngClass]="{'currentTab' : updatesPage}" id="updates"
+                     (click)="changeTab('updates')"><a><span
+                        class="updates">Updates</span></a></div>
+
+                <div class="offeringTab disableTab" [ngClass]="{'currentTab' : questionsPage}"
+                     id="questions"
+                ><a><span class="tabText">Q&A</span></a>
+                </div>
+                <!--(click)="changeTab('questions')"-->
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="offeringContainer">
+    <div class="specificOfferingContent">
+        <div class="col-md-12  carouselOuter divAlignLeft">
+            <div class="col-md-8 carouselContainer"  *ngIf="overviewPage">
+                <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+            </div>
+
+            <!--Updates page-->
+            <div class="browseOfferingContent">
+                <div class="col-md-8 updateViewContent" *ngIf="updatesPage" >
+                    <div class="updateTitle">
+                        <span class="titleBody">Updates</span>
+                    </div>
+                    <div class="updateContent">
+                        <span>No updates for this offer yet.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!--Q & A page-->
+            <div class="browseOfferingContent">
+                <div class="col-md-8" *ngIf="questionsPage">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="messageContainer">
+                            <p class="messageBody">Q & A</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--side block-->
+            <div class="col-md-4 offeringContent">
+                <div class="contentContainer">
+                    <div class="contentUpperContainer">
+                        <div class="socialIcons">
+                            <div class="socialIconContainer">
+                                <div class="social-icons">
+                                    <ul>
+                                        <li class="iconListStyle"><a target='_blank' href="https://twitter.com"><i
+                                                class="fa fa-twitter"></i></a></li>
+                                        <li class="iconListStyle"><a target='_blank' href="https://facebook.com"><i
+                                                class="fa fa-facebook"></i></a></li>
+                                        <li class="iconListStyle"><a target='_blank' href="https://instagram.com"><i
+                                                class="fa fa-instagram"></i></a></li>
+                                        <li class="iconListStyle"><a target='_blank' href="https://pinterest.com"><i
+                                                class="fa fa-pinterest"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="offeringFund">
+                            <span class="raisedFund totalGoal">${{offeringData.offeringAmount? offeringData.offeringAmount : ''}}</span>
+                            <span class="raisedFund raisedTotal">RAISED OF ${{offeringData.offeringAmount? offeringData.offeringAmount : ''}} GOAL</span>
+                        </div>
+
+                        <div class="offeringTerm">
+                            <div class="offeringTermDiv">
+                                <div class="offeringTermText">
+                                    <span class="offeringLabelData">DAYS</span>
+                                    <span class="offeringLabel">28</span>
+                                </div>
+                            </div>
+
+                            <div class="offeringTermDiv">
+                                <div class="offeringTermText">
+                                    <span class="offeringLabelData">HOUR</span>
+                                    <span class="offeringLabel">28</span>
+                                </div>
+                            </div>
+
+                            <div class="offeringTermDiv">
+                                <div class="offeringTermText">
+                                    <span class="offeringLabelData">MIN</span>
+                                    <span class="offeringLabel">28</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="progressBarContainerDiv">
+                            <div class="progress progressBarDiv">
+                                <div class="progress-bar" [style.width.%]='78'
+                                     role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                    <span>$80000</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="offeringInfo">
+                            <div class="offeringInfoDiv">
+                                <div class="offeringInfoText">
+                                    <span class="offeringLabelData">{{offeringData.typeOfOffering? offeringData.typeOfOffering : ''}}</span>
+                                    <span class="offeringLabel">OFFER TYPE</span>
+                                </div>
+                            </div>
+
+                            <div class="offeringInfoDiv">
+                                <div class="offeringInfoText">
+                                    <span class="offeringLabelData">Equity</span>
+                                    <span class="offeringLabel">ANN. RETURN</span>
+                                </div>
+                            </div>
+
+                            <div class="offeringInfoDiv">
+                                <div class="offeringInfoText">
+                                    <span class="offeringLabelData">{{offeringData.term? offeringData.term : ''}}YRS</span>
+                                    <span class="offeringLabel">TERM</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="investButton">
+                            <button class="btnStyle readyToInvestButton">
+                                READY TO INVEST
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="contentLowerContainer">
+                        <div class="questionContainer">
+                            <div class="askQuestion">
+                                ASK A QUESTION
+                            </div>
+                        </div>
+                        <div class="contact">
+                            <span class="contactIcon"><i class="fa fa-phone"></i></span>
+                            <span class="contactNumber">7073400765</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

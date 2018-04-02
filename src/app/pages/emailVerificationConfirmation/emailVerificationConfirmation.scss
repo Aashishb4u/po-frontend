@@ -1,0 +1,133 @@
+
+@import '../../theme/sass/auth';
+@import '../../../styles';
+
+.emailVerificationContainer {
+  text-align: center;
+  .emailVerificationSegment {
+    width: 28%;
+    display: inline-block;
+    .resetdivStyle {
+      text-align: center;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 0.005em;
+    }
+    .resetTitle {
+      width: 100%;
+      display: inline-block;
+      margin-top: 15%;
+      img {
+        width: 60%;
+      }
+    }
+    .signup {
+      border: 1px solid gainsboro;
+      background-color: $white-bg;
+      border-radius: $border-radius;
+      margin-top: 10px;
+      .resetdivStyle {
+        text-align: center;
+        font-size: 17px;
+        margin-top: 5%;
+        margin-bottom: 16px;
+        font-weight: 500;
+        letter-spacing: 0.005em;
+      }
+      .signUpFooter{
+        padding: 0px;
+      }
+      .signUpText {
+        width: 80%;
+        margin: 0 auto;
+        margin-top: 7.8%;
+        font-size: 17px;
+        margin-bottom: 8%;
+        color: $signin-link-color;
+      }
+      .signIn {
+        cursor: pointer;
+        color: $signin-link-color;
+        font-size: 15px;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      .signInText {
+        font-size: 15px;
+      }
+      .alreadyHaveAccount {
+        margin-bottom: 5%;
+      }
+    }
+    .messageBody{
+      line-height: initial;
+      letter-spacing: 0.005em;
+    }
+    .forgotPassword {
+      cursor: pointer;
+      font-size: 17px;
+      color: $signin-link-color;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 200px) and (max-width: 700px) {
+  .emailVerificationContainer {
+    .emailVerificationSegment {
+      width: 100%;
+    }
+    .horizontalLine {
+      display: inline-block;
+      width: 35%;
+      hr {
+        margin-top: -4px;
+        margin-bottom: 0;
+      }
+    }
+    .signUpText {
+      display: inline-block;
+      width: 27%;
+      padding: 0;
+    }
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .emailVerificationSegment {
+    width: 60% !important;
+  }
+  .signUpText {
+    display: inline-block;
+    width: 27%;
+  }
+}
+
+@media screen and (min-width: 200px) and (max-width: 700px) {
+  .emailVerificationContainer {
+    .emailVerificationSegment {
+      width: 100% !important;;
+    }
+    .signUpText {
+      display: inline-block;
+      width: 27%;
+      padding: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 200px) and (max-width: 700px) {
+  .emailVerificationContainer{
+    .emailVerificationSegment {
+      width: 100% !important;;
+    }
+    .signUpText {
+      display: inline-block;
+      width: 27%;
+      padding: 0;
+    }
+  }
+}

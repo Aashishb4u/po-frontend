@@ -1,0 +1,49 @@
+<div class="main-campaign">
+</div>
+
+<div class="addUserContainer">
+    <div class="profileContent">
+
+            <div class="col-md-12 row profileForm">
+                <div class="col-md-4 adjustBottom">
+                    <div>
+                        <label class="labelStyle required"> Categories </label>
+                    </div>
+                </div>
+
+                <div class="col-md-8 adjustBottom">
+                    <div>
+                        <select [(ngModel)]="this.categoryData" multiple size="6" class="form-control text-capitalize  selectBox" >
+                            <option  *ngFor="let tag of tagsArray" value="{{tag.id}}">{{tag.name}}</option>
+                        </select>
+                    </div>
+                    <div class="profileErrorMessage">
+
+                    </div>
+                </div>
+
+                <div class="col-md-4 adjustBottom">
+                    <div>
+                        <label class="labelStyle required"> Terms & Conditions  </label>
+                    </div>
+                </div>
+                <div class="col-md-8 adjustBottom">
+                    <div >
+                        <ckeditor palceholder="description"
+                                  [(ngModel)]="this.description"   [config]="this.userUtility.configurationCkEditor" debounce="500" >
+                        </ckeditor>
+                    </div>
+                    <div class="profileErrorMessage">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 row" >
+                <div class="col-md-12 form-group inputbutton submitButton">
+                    <button  (click)="goBack()" class="btnStyle btnBackStyle"> Back</button>
+                    <button [ngClass]="{'disableSubmit' : (this.description.length < 1 || this.categoryData.length == 0 ) }" [disabled]="(this.description.length < 1 || this.categoryData.length == 0)" (click)="addTerms()" class="btnNext btnStyle">Add T&C
+                    </button>
+                </div>
+            </div>
+    </div>
+</div>

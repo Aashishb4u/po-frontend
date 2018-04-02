@@ -1,0 +1,79 @@
+<div class="main-campaign">
+</div>
+
+<div class="addUserContainer">
+    <div class="profileContent">
+
+            <div class="col-md-12 row profileForm">
+                <div class="col-md-4 adjustBottom">
+                    <div>
+                        <label class="labelStyle required"> Categories </label>
+                    </div>
+                </div>
+
+                <div class="col-md-8 adjustBottom">
+                    <div>
+                        <select [(ngModel)]="this.categoryData" (change)="checkValue(this.categoryData)" multiple size="6" class="form-control text-capitalize selectBox" >
+                            <option  *ngFor="let tag of tagsArray" value="{{tag.id}}">{{tag.name}}</option>
+                        </select>
+                    </div>
+                    <div class="profileErrorMessage">
+                        <!--<div class="profileErrorMessage">-->
+                            <!--<span *ngIf="(!form.get('vendorName').valid && form.get('vendorName').touched) && form.get('vendorName').value != '' "-->
+                                  <!--class="help-block sub-little-signUp-error confpass"> Please Enter Valid Item Name </span>-->
+                            <!--<span *ngIf="form.get('vendorName').touched && form.get('vendorName').value.trim() == '' "-->
+                                  <!--class="help-block sub-little-signUp-error confpass"> Item Name is Required </span>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+
+                <div class="col-md-4 adjustBottom">
+                    <div>
+                        <label class="labelStyle required"> Terms & Conditions  </label>
+                    </div>
+                </div>
+                <div class="col-md-8 adjustBottom">
+                    <div >
+                        <!--<textarea maxlength="120" placeholder="Description" formControlName="description" class="form-control" ></textarea>-->
+                        <ckeditor palceholder="description"
+                                  [(ngModel)]="this.description"   [config]="this.userUtility.configurationCkEditor" debounce="500" >
+                        </ckeditor>
+                    </div>
+                    <div class="profileErrorMessage">
+                        <!--<div class="profileErrorMessage">-->
+                            <!--<span *ngIf="(!form.get('description').valid && form.get('description').touched) && form.get('description').value != '' "-->
+                                  <!--class="help-block sub-little-signUp-error confpass"> Please Enter Valid Description </span>-->
+                            <!--<span *ngIf="form.get('description').touched && form.get('description').value.trim() == '' "-->
+                                  <!--class="help-block sub-little-signUp-error confpass"> Description is Required </span>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+
+
+                <!--<div class="col-md-4 adjustBottom">-->
+                    <!--<div>-->
+                        <!--<label class="labelStyle"> Categories  </label>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-8 adjustBottom">-->
+                    <!--<div [ngClass]="{'has-error': (form.controls['categories'].invalid && form.controls['categories'].touched), 'has-success': (form.controls['categories'].valid && form.controls['categories'].touched)}">-->
+                        <!--<rl-tag-input [placeholder]='placeHolderForTag' [autocompleteMustMatch]="true" [autocompleteItems]="tagsArray" [autocomplete]="true" formControlName="categories" (removeTag)="removeCandidatetags($event);" (addTag)="addCandidatetags($event)"></rl-tag-input>-->
+                    <!--</div>-->
+                    <!--<div class="profileErrorMessage">-->
+                        <!--<div class="profileErrorMessage">-->
+                            <!--<span *ngIf="form.controls['categories'].dirty && form.controls['categories'].invalid"-->
+                                  <!--class="help-block sub-little-signUp-error confpass"> Categories are Required </span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+
+            <div class="col-md-12 row" >
+                <div class="col-md-12 form-group inputbutton submitButton">
+                    <button (click)="goBack()" class="btnStyle btnBackStyle"> Back</button>
+                    <button [ngClass]="{'disableSubmit' : (this.description.length < 1) }" [disabled]="(this.description.length < 1)" (click)="editTerms()" class="btnNext btnStyle">Edit T&C
+                    </button>
+                </div>
+            </div>
+    </div>
+</div>
